@@ -1,5 +1,6 @@
 from schemas import EntryIn, EntryOut, ToDoOut, ToDoIn
 from fastapi import FastAPI, HTTPException
+from db import get_all_entries
 
 # from db import ???
 
@@ -12,7 +13,7 @@ app = FastAPI()
 
 @app.get("/entries")
 async def get_all_db_entries():
-    return get_all_db_entries()
+    return get_all_entries()
 
 
 @app.get("/entries/{entry_id}")

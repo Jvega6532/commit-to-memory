@@ -1,18 +1,22 @@
 from pydantic import BaseModel
 from datetime import date
 
-class NewEntryIn(BaseModel):
+
+class EntryIn(BaseModel):
     title: str
     content: str
 
-class NewEntryOut(NewEntryIn):
-    date: date
+
+class EntryOut(EntryIn):
+    post_date: date
     entry_id: int
 
-class NewToDoIn(BaseModel):
+
+class ToDoIn(BaseModel):
     entry_id: int
     task: str
 
-class newToDoOut(NewToDoIn):
+
+class ToDoOut(ToDoIn):
     to_do_id: int
     is_completed: bool

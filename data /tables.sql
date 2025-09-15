@@ -5,12 +5,12 @@
     */
 
 
-DROP TABLE IF EXISTS entry;
+DROP TABLE IF EXISTS entries;
 DROP TABLE IF EXISTS to_dos;
 
-CREATE TABLE entry(
+CREATE TABLE entries(
     entry_id SERIAL PRIMARY KEY,
-    date DATE NOT NULL,
+    post_date DATE NOT NULL,
     title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL
 );

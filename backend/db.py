@@ -66,8 +66,23 @@ def delete_single_db_entry(entry_id: int):
     return True
 
 
-def update_db_entry():
-    return None
+def update_db_entry(entry_id: int, updated_entry: EntryIn) -> EntryOut | None:
+    with SessionLocal() as db:
+        stmt = select(DBEntries).where(DBEntries.entry_id == entry_id)
+        entry = db.scalar(stmt)
+        if not entry:
+            return None
+        for key, value in updated_entry.model_dump().items():
+            setattr(entry, key, value)
+        db.commit()
+        db.refresh(entry)
+        return EntryOut(
+            entry_id=entry.entry_id,
+            post_date=entry.post_date,
+            title=entry.title,
+            content=entry.content,
+        )
+
 
 
 # -----------------------------------------------

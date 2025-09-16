@@ -49,9 +49,14 @@ async def delete_entry(entry_id: int):
         raise HTTPException(status_code=404, detail="Entry not found")
 
 
-@app.patch("/entries/{entry_id}")
-async def update_entry():
-    return None
+@app.put("/entries/{entry_id}")
+async def update_entry(entry_id: int, updated_entry: EntryIn):
+    confirmUpdate = update_db_entry(entry_id, updated_entry)
+    if confirmUpdate:
+        return confirmUpdate
+    else:
+        raise HTTPException(status_code=404, detail="Entry not found")
+    
 
 
 # ---------------------------------------

@@ -13,10 +13,10 @@ class EntryOut(EntryIn):
 
 
 class ToDoIn(BaseModel):
-    entry_id: int
     task: str
 
 
 class ToDoOut(ToDoIn):
     to_do_id: int
     is_completed: bool
+    entry_id: int

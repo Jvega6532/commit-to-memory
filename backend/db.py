@@ -107,9 +107,18 @@ def get_db_todos(entry_id: int) -> list[ToDoOut] | None:
             return None
 
 
-def add_db_todo():
-    return None
-
+def add_db_todo(entry_id : int, new_todo: ToDoIn) -> ToDoOut | None:
+    with SessionLocal() as db:
+        new_todo= DBTodos(entry_id=entry_id,is_completed = 'FALSE', **new_todo.model_dump())
+        db.add(new_todo)
+        db.commit()
+        db.refresh(new_todo)
+        return ToDoOut(
+            to_do_id=new_todo.to_do_id,
+            entry_id=new_todo.entry_id,
+            task=new_todo.task,
+            is_completed=new_todo.is_completed,
+        )
 
 def delete_db_todo():
     return None

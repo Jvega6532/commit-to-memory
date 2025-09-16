@@ -72,8 +72,12 @@ async def get_todos_for_entry(entry_id: int):
 
 
 @app.post("/entries/{entry_id}/todos")
-async def post_todo():
-    return None
+async def post_todo(entry_id: int, new_todo: ToDoIn):
+    confirmAdd = add_db_todo(entry_id, new_todo)
+    if confirmAdd:
+        return confirmAdd
+    else:
+        return None
 
 
 @app.delete("/entries/{entry_id}/todos")

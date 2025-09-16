@@ -29,7 +29,7 @@ def get_all_entries() -> list[EntryOut] | None:
 def get_single_entry(entry_id: int) -> EntryOut | None:
     with SessionLocal() as db:
         stmt = select(DBEntries).where(DBEntries.entry_id == entry_id)
-        db_entry = db.scalar(stmt).first()
+        db_entry = db.scalar(stmt)
         if db_entry:
             return EntryOut(
                 entry_id=db_entry.entry_id,

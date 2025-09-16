@@ -56,7 +56,6 @@ async def update_entry(entry_id: int, updated_entry: EntryIn):
         return confirmUpdate
     else:
         raise HTTPException(status_code=404, detail="Entry not found")
-    
 
 
 # ---------------------------------------
@@ -64,8 +63,12 @@ async def update_entry(entry_id: int, updated_entry: EntryIn):
 
 
 @app.get("/entries/{entry_id}/todos")
-async def get_todos_for_entry():
-    return None
+async def get_todos_for_entry(entry_id: int):
+    validCheck = get_db_todos(entry_id)
+    if validCheck:
+        return validCheck
+    else:
+        raise HTTPException(status_code=404, detail="No To Do items for this entry")
 
 
 @app.post("/entries/{entry_id}/todos")

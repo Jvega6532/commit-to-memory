@@ -31,7 +31,6 @@ def get_single_db_entry(entry_id: int) -> EntryOut | None:
     with SessionLocal() as db:
         stmt = select(DBEntries).where(DBEntries.entry_id == entry_id)
         db_entry = db.scalar(stmt)
-        print(db_entry)
         if db_entry:
             return EntryOut(
                 entry_id=db_entry.entry_id,
@@ -84,13 +83,28 @@ def update_db_entry(entry_id: int, updated_entry: EntryIn) -> EntryOut | None:
         )
 
 
-
 # -----------------------------------------------
 # todos
 
 
-def get_db_todos():
-    return None
+def get_db_todos(entry_id: int):
+    todo_list = []
+    with SessionLocal() as db:
+        stmt = select(DBTodos).where(DBTodos.entry_id == entry_id)
+        db_todos = db.scalars(stmt).all()
+        if db_todos:
+            for db_todo in db_todos:
+                todo_list.append(
+                    ToDoOut(
+                        to_do_id=db_todo.to_do_id,
+                        entry_id=db_todo.entry_id,
+                        task=db_todo.task,
+                        is_completed=db_todo.is_completed,
+                    )
+                )
+            return todo_list
+        else:
+            return None
 
 
 def add_db_todo():

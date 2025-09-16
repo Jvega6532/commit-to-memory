@@ -1,6 +1,17 @@
 from schemas import EntryIn, EntryOut, ToDoOut, ToDoIn
 from fastapi import FastAPI, HTTPException
-from db import get_all_entries, get_single_entry
+from db import (
+    get_all_db_entries,
+    get_single_db_entry,
+    post_single_db_entry,
+    delete_single_db_entry,
+    update_db_entry,
+    get_db_todos,
+    add_db_todo,
+    delete_db_todo,
+    update_db_todo,
+    mark_db_todo_completed,
+)
 
 # from db import ???
 
@@ -12,30 +23,30 @@ app = FastAPI()
 
 
 @app.get("/entries")
-async def get_all_db_entries():
-    return get_all_entries()
+async def get_all_entries():
+    return get_all_db_entries()
 
 
 @app.get("/entries/{entry_id}")
-async def get_single_db_entry(entry_id: int):
-   entry = get_single_entry(entry_id=entry_id)
-   if not entry:
-       raise HTTPException(status_code=404, detail="Entry not found")
-   return entry
+async def get_single_entry(entry_id: int):
+    entry = get_single_db_entry(entry_id=entry_id)
+    if not entry:
+        raise HTTPException(status_code=404, detail="Entry not found")
+    return entry
 
 
 @app.post("/entries")
-async def post_db_entry():
-    return None
+async def post_entry(new_entry: EntryIn):
+    return post_single_db_entry(new_entry)
 
 
 @app.delete("/entries/{entry_id}")
-async def delete_db_entry():
+async def delete_entry():
     return None
 
 
 @app.patch("/entries/{entry_id}")
-async def update_db_entry():
+async def update_entry():
     return None
 
 
@@ -44,22 +55,22 @@ async def update_db_entry():
 
 
 @app.get("/todos/{entry_id}")
-async def get_db_todos_for_entry():
+async def get_todos_for_entry():
     return None
 
 
 @app.post("/todos/{entry_id}")
-async def post_db_todo():
+async def post_todo():
     return None
 
 
 @app.delete("/todos/{entry_id}")
-async def delete_db_todo():
+async def delete_todo():
     return None
 
 
 @app.patch("/todos/{entry_id}")
-async def update_db_todo():
+async def update_todo():
     return None
 
 

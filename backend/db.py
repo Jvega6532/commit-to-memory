@@ -26,9 +26,17 @@ def get_all_entries() -> list[EntryOut] | None:
     return db_list_entries
 
 
-def get_single_entry():
-    return None
-
+def get_single_entry(entry_id: int) -> EntryOut | None:
+    with SessionLocal() as db:
+        stmt = select(DBEntries).where(DBEntries.entry_id == entry_id)
+        db_entry = db.scalar(stmt).first()
+        if db_entry:
+            return EntryOut(
+                entry_id=db_entry.entry_id,
+                post_date=db_entry.post_date,
+                title=db_entry.title,
+                content=db_entry.content,
+            )
 
 def post_single_entry():
     return None

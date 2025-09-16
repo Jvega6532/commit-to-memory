@@ -1,6 +1,6 @@
 from schemas import EntryIn, EntryOut, ToDoOut, ToDoIn
 from fastapi import FastAPI, HTTPException
-from db import get_all_entries
+from db import get_all_entries, get_single_entry
 
 # from db import ???
 
@@ -17,8 +17,11 @@ async def get_all_db_entries():
 
 
 @app.get("/entries/{entry_id}")
-async def get_single_db_entry():
-    return None
+async def get_single_db_entry(entry_id: int):
+   entry = get_single_entry(entry_id=entry_id)
+   if not entry:
+       raise HTTPException(status_code=404, detail="Entry not found")
+   return entry
 
 
 @app.post("/entries")

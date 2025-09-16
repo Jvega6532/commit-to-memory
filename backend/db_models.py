@@ -18,7 +18,7 @@ class DBEntries(Base):
 
 class DBTodos(Base):
 
-    __tablename__ = "to_dos"
+    __tablename__ = "todos"
     to_do_id: Mapped[int] = mapped_column(primary_key=True, index=True)
     entry_id: Mapped[int] = mapped_column(ForeignKey("entries.id"))
     task: Mapped[str] = mapped_column()

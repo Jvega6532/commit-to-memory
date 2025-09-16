@@ -41,8 +41,12 @@ async def post_entry(new_entry: EntryIn):
 
 
 @app.delete("/entries/{entry_id}")
-async def delete_entry():
-    return None
+async def delete_entry(entry_id: int):
+    validCheck = delete_single_db_entry(entry_id)
+    if validCheck is True:
+        return validCheck
+    elif validCheck is False:
+        raise HTTPException(status_code=404, detail="Entry not found")
 
 
 @app.patch("/entries/{entry_id}")
@@ -54,26 +58,26 @@ async def update_entry():
 # todo endpoints
 
 
-@app.get("/todos/{entry_id}")
+@app.get("/entries/{entry_id}/todos")
 async def get_todos_for_entry():
     return None
 
 
-@app.post("/todos/{entry_id}")
+@app.post("/entries/{entry_id}/todos")
 async def post_todo():
     return None
 
 
-@app.delete("/todos/{entry_id}")
+@app.delete("/entries/{entry_id}/todos")
 async def delete_todo():
     return None
 
 
-@app.patch("/todos/{entry_id}")
+@app.patch("/entries/{entry_id}/todos")
 async def update_todo():
     return None
 
 
-@app.patch("/todos/{entry_id}/completed")
+@app.patch("/entries/{entry_id}/todos/completed")
 async def mark_todo_completed():
     return None

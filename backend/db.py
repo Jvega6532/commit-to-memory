@@ -30,7 +30,8 @@ def get_all_db_entries() -> list[EntryOut] | None:
 def get_single_db_entry(entry_id: int) -> EntryOut | None:
     with SessionLocal() as db:
         stmt = select(DBEntries).where(DBEntries.entry_id == entry_id)
-        db_entry = db.scalar(stmt).first()
+        db_entry = db.scalar(stmt)
+        print(db_entry)
         if db_entry:
             return EntryOut(
                 entry_id=db_entry.entry_id,
@@ -40,7 +41,7 @@ def get_single_db_entry(entry_id: int) -> EntryOut | None:
             )
 
 
-def post_single_db_entry(new_entry: EntryIn):
+def post_single_db_entry(new_entry: EntryIn) -> EntryOut | None:
     with SessionLocal() as db:
         db_entry = DBEntries(post_date=date.today(), **new_entry.model_dump())
         db.add(db_entry)
@@ -54,8 +55,15 @@ def post_single_db_entry(new_entry: EntryIn):
         )
 
 
-def delete_single_db_entry():
-    return None
+def delete_single_db_entry(entry_id: int):
+    with SessionLocal() as db:
+        stmt = select(DBEntries).where(DBEntries.entry_id == entry_id)
+        entry = db.scalar(stmt)
+        if not entry:
+            return False
+        db.delete(entry)
+        db.commit()
+    return True
 
 
 def update_db_entry():

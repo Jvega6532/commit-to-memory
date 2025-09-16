@@ -54,7 +54,7 @@ def post_single_db_entry(new_entry: EntryIn) -> EntryOut | None:
         )
 
 
-def delete_single_db_entry(entry_id: int):
+def delete_single_db_entry(entry_id: int) -> bool:
     with SessionLocal() as db:
         stmt = select(DBEntries).where(DBEntries.entry_id == entry_id)
         entry = db.scalar(stmt)
@@ -87,7 +87,7 @@ def update_db_entry(entry_id: int, updated_entry: EntryIn) -> EntryOut | None:
 # todos
 
 
-def get_db_todos(entry_id: int):
+def get_db_todos(entry_id: int) -> list[ToDoOut] | None:
     todo_list = []
     with SessionLocal() as db:
         stmt = select(DBTodos).where(DBTodos.entry_id == entry_id)

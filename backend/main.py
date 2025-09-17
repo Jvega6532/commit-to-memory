@@ -98,6 +98,10 @@ async def update_todo(entry_id: int, todo_id: int, updated_todo: ToDoIn):
         raise HTTPException(status_code=404, detail="Entry not found")
 
 
-@app.patch("/entries/{entry_id}/todos/completed")
-async def mark_todo_completed():
-    return None
+@app.patch("/entries/{entry_id}/todos/{todo_id}")
+async def mark_todo_completed(entry_id: int, todo_id: int):
+    validCheck = mark_db_todo_completed(entry_id, todo_id)
+    if validCheck is True:
+        return validCheck
+    elif validCheck is False:
+        raise HTTPException(status_code=404, detail="Could not update entry")

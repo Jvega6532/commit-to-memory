@@ -154,19 +154,18 @@ def update_db_todo(entry_id: int, todo_id: int, updated_todo: ToDoIn) -> ToDoOut
             task=todo.task,
             is_completed=todo.is_completed,
         )
-    
 
 
-def mark_db_todo_completed():
-    return None
-
-
-# get all todos for particular entry
-
-# add todo
-
-# delete todo
-
-# update todo
-
-# mark completed todo
+def mark_db_todo_completed(entry_id: int, todo_id: int):
+    with SessionLocal() as db:
+        stmt = select(DBTodos).where(
+            DBTodos.entry_id == entry_id, DBTodos.todo_id == todo_id
+        )
+        entry = db.scalar(stmt)
+        if not entry:
+            return False
+        if not entry.is_completed:
+            entry.is_completed = True
+            db.commit()
+            db.refresh(entry)
+        return True

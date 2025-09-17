@@ -96,7 +96,7 @@ def get_db_todos(entry_id: int) -> list[ToDoOut] | None:
             for db_todo in db_todos:
                 todo_list.append(
                     ToDoOut(
-                        to_do_id=db_todo.to_do_id,
+                        todo_id=db_todo.todo_id,
                         entry_id=db_todo.entry_id,
                         task=db_todo.task,
                         is_completed=db_todo.is_completed,
@@ -116,15 +116,24 @@ def add_db_todo(entry_id: int, new_todo: ToDoIn) -> ToDoOut | None:
         db.commit()
         db.refresh(new_todo)
         return ToDoOut(
-            to_do_id=new_todo.to_do_id,
+            todo_id=new_todo.todo_id,
             entry_id=new_todo.entry_id,
             task=new_todo.task,
             is_completed=new_todo.is_completed,
         )
 
 
-def delete_db_todo():
-    return None
+def delete_db_todo(entry_id, todo_id) -> bool:
+    with SessionLocal() as db:
+        stmt = select(DBTodos).where(
+            DBTodos.entry_id == entry_id, DBTodos.todo_id == todo_id
+        )
+        entry = db.scalar(stmt)
+        if not entry:
+            return False
+        db.delete(entry)
+        db.commit()
+    return True
 
 
 def update_db_todo():

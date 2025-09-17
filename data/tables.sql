@@ -16,7 +16,7 @@ CREATE TABLE entries(
 );
 
 CREATE TABLE todos (
-    to_do_id SERIAL PRIMARY KEY,
+    todo_id SERIAL PRIMARY KEY,
     entry_id int REFERENCES entries(entry_id),
     task TEXT NOT NULL,
     is_completed BOOLEAN

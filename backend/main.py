@@ -81,8 +81,12 @@ async def post_todo(entry_id: int, new_todo: ToDoIn):
 
 
 @app.delete("/entries/{entry_id}/todos")
-async def delete_todo():
-    return None
+async def delete_todo(entry_id: int, todo_id: int):
+    validCheck = delete_db_todo(entry_id, todo_id)
+    if validCheck is True:
+        return validCheck
+    elif validCheck is False:
+        raise HTTPException(status_code=404, detail="Entry not found")
 
 
 @app.patch("/entries/{entry_id}/todos")

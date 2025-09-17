@@ -123,11 +123,9 @@ def add_db_todo(entry_id: int, new_todo: ToDoIn) -> ToDoOut | None:
         )
 
 
-def delete_db_todo(entry_id, todo_id) -> bool:
+def delete_db_todo(todo_id) -> bool:
     with SessionLocal() as db:
-        stmt = select(DBTodos).where(
-            DBTodos.entry_id == entry_id, DBTodos.todo_id == todo_id
-        )
+        stmt = select(DBTodos).where(DBTodos.todo_id == todo_id)
         entry = db.scalar(stmt)
         if not entry:
             return False
@@ -136,11 +134,9 @@ def delete_db_todo(entry_id, todo_id) -> bool:
     return True
 
 
-def update_db_todo(entry_id: int, todo_id: int, updated_todo: ToDoIn) -> ToDoOut | None:
+def update_db_todo(todo_id: int, updated_todo: ToDoIn) -> ToDoOut | None:
     with SessionLocal() as db:
-        stmt = select(DBTodos).where(
-            DBTodos.entry_id == entry_id, DBTodos.todo_id == todo_id
-        )
+        stmt = select(DBTodos).where(DBTodos.todo_id == todo_id)
         todo = db.scalar(stmt)
         if not todo:
             return None
@@ -156,11 +152,9 @@ def update_db_todo(entry_id: int, todo_id: int, updated_todo: ToDoIn) -> ToDoOut
         )
 
 
-def mark_db_todo_completed(entry_id: int, todo_id: int):
+def mark_db_todo_completed(todo_id: int) -> ToDoOut | None | bool:
     with SessionLocal() as db:
-        stmt = select(DBTodos).where(
-            DBTodos.entry_id == entry_id, DBTodos.todo_id == todo_id
-        )
+        stmt = select(DBTodos).where(DBTodos.todo_id == todo_id)
         entry = db.scalar(stmt)
         if not entry:
             return False
@@ -168,4 +162,9 @@ def mark_db_todo_completed(entry_id: int, todo_id: int):
             entry.is_completed = True
             db.commit()
             db.refresh(entry)
-        return True
+        return ToDoOut(
+            todo_id=entry.todo_id,
+            entry_id=entry.entry_id,
+            task=entry.task,
+            is_completed=entry.is_completed,
+        )

@@ -80,28 +80,27 @@ async def post_todo(entry_id: int, new_todo: ToDoIn):
         return None
 
 
-@app.delete("/entries/{entry_id}/todos")
-async def delete_todo(entry_id: int, todo_id: int):
-    validCheck = delete_db_todo(entry_id, todo_id)
+@app.delete("/todos/{todo_id}")
+async def delete_todo(todo_id: int):
+    validCheck = delete_db_todo(todo_id)
     if validCheck is True:
         return validCheck
     elif validCheck is False:
         raise HTTPException(status_code=404, detail="Entry not found")
 
 
-@app.patch("/entries/{entry_id}/todos/{todo_id}")
-async def update_todo(entry_id: int, todo_id: int, updated_todo: ToDoIn):
-    confirmUpdate = update_db_todo(entry_id, todo_id, updated_todo)
+@app.patch("/todos/{todo_id}")
+async def update_todo(todo_id: int, updated_todo: ToDoIn):
+    confirmUpdate = update_db_todo(todo_id, updated_todo)
     if confirmUpdate:
         return confirmUpdate
     else:
         raise HTTPException(status_code=404, detail="Entry not found")
 
 
-@app.patch("/entries/{entry_id}/todos/{todo_id}")
-async def mark_todo_completed(entry_id: int, todo_id: int):
-    validCheck = mark_db_todo_completed(entry_id, todo_id)
-    if validCheck is True:
-        return validCheck
-    elif validCheck is False:
+@app.patch("/todos/{todo_id}/complete")
+async def mark_todo_completed(todo_id: int) -> ToDoOut | None | bool:
+    validCheck = mark_db_todo_completed(todo_id)
+    if validCheck is False:
         raise HTTPException(status_code=404, detail="Could not update entry")
+    return validCheck

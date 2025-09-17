@@ -89,7 +89,7 @@ async def delete_todo(entry_id: int, todo_id: int):
         raise HTTPException(status_code=404, detail="Entry not found")
 
 
-@app.patch("/entries/{entry_id}/todos")
+@app.patch("/entries/{entry_id}/todos/{todo_id}")
 async def update_todo(entry_id: int, todo_id: int, updated_todo: ToDoIn):
     confirmUpdate = update_db_todo(entry_id, todo_id, updated_todo)
     if confirmUpdate:

@@ -20,7 +20,7 @@ function App() {
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/entries">Entries</Link></li>
+            <li><Link to="/new_entry">New Entry</Link></li>
           </ul>
         </nav>
       </header>

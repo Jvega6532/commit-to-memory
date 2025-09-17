@@ -13,11 +13,6 @@ from db import (
     mark_db_todo_completed,
 )
 
-# from db import ???
-
-# --------------------------------
-# entry endpoints
-
 
 app = FastAPI()
 

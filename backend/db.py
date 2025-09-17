@@ -136,8 +136,25 @@ def delete_db_todo(entry_id, todo_id) -> bool:
     return True
 
 
-def update_db_todo():
-    return None
+def update_db_todo(entry_id: int, todo_id: int, updated_todo: ToDoIn) -> ToDoOut | None:
+    with SessionLocal() as db:
+        stmt = select(DBTodos).where(
+            DBTodos.entry_id == entry_id, DBTodos.todo_id == todo_id
+        )
+        todo = db.scalar(stmt)
+        if not todo:
+            return None
+        for key, value in updated_todo.model_dump().items():
+            setattr(todo, key, value)
+        db.commit()
+        db.refresh(todo)
+        return ToDoOut(
+            todo_id=todo.todo_id,
+            entry_id=todo.entry_id,
+            task=todo.task,
+            is_completed=todo.is_completed,
+        )
+    
 
 
 def mark_db_todo_completed():

@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import Home from './Home.jsx'
 import NewEntry from './NewEntry.jsx'
+import Entry from './Entry.jsx'
 
 {/*
   We will need to set up the routes for NewEntry and Entry here
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={< App />}>
           <Route index element={<Home />} />
           <Route path="/new_entry" element={<NewEntry />} />
+          <Route path="/entries/:entryId" element={<Entry />} />
         </Route>
       </Routes>
     </BrowserRouter>

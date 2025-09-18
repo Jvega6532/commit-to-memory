@@ -29,7 +29,7 @@ function App() {
       </main>
       <br></br>
       <footer>
-        <p>© 2024 Commit To Memory | Created by Brian Leach and Jamir Vega</p>
+        <p>© 2025 Commit To Memory | Created by Brian Leach and Jamir Vega</p>
       </footer>
 
     </>

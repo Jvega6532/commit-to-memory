@@ -5,12 +5,13 @@ import React, { useState } from "react";
     to the entry database table
     */}
 
-const handleAddEntry = (event) => {
+const handleAddEntry = async (event) => {   
     event.preventDefault();
     const formData = new FormData(event.target);
     const newEntry = {
         title: formData.get("title"),
-        content: formData.get("content");
+        content: formData.get("content"),
+    };
 
     try {
         const response = await fetch('http://localhost:8000/entries', {

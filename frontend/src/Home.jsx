@@ -31,6 +31,7 @@ function Home() {
                     <p><Link to={`/entries/${entry.entry_id}`}>{entry.title}</Link> | {entry.post_date} | <button>0/5</button></p>
                     <p>{entry.content}</p>
                     <button>Delete Entry</button>      <button>Edit Entry</button>
+                                       
                     {/*
                     Delete button
                     Todo Tracker

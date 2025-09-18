@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 {/*
     This will be the form for adding a new entry
     to the entry database table
@@ -22,7 +23,7 @@ function NewEntry() {
                 <br></br>
                 <button type="submit">Add Entry</button>
                 <button type="reset">Clear</button>
-                <button>Return to Home</button>
+                <p><Link to="/">Return to Home</Link></p>
             </form>
         </div>
     );

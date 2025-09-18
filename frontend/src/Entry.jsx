@@ -54,22 +54,24 @@ function Entry() {
 
     return (
         <div>
-            <h2>{entry.title}</h2>
-            <p>{entry.post_date}</p>
+            <h2>{entry.title} | {entry.post_date}</h2>
             <p>{entry.content}</p>
             <h3>Todos</h3>
+            <input type="text" placeholder="Add a todo ..." />   <button>Add Todo</button>
+            <br></br>
+            <br></br>
             <ul>
                 {todos.map(todo => (
                     <li key={todo.todo_id}>
-                        <p>{todo.task} </p>
+                        <p>{todo.task}                     <input type="checkbox" checked={todo.completed} /></p>                         <br></br>
                         <button>Edit Todo</button> <button>Delete Todo</button>
                     </li>
                 ))}
             </ul>
-            <button>Add Todo</button>
+
             <br></br>
             <br></br>
-            <button>Return to Home</button>
+            <p><Link to="/">Return to Home</Link></p>
 
         </div>
     );

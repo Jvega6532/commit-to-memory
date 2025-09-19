@@ -9,9 +9,9 @@ function EditableTodo({ todo, onUpdate, onDelete }) {
         setLoading(true);
         try {
             const response = await fetch(`http://localhost:8000/todos/${todo.todo_id}`, {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...todo, task: editedTask }),
+                body: JSON.stringify({ task: editedTask }),
             });
 
             if (!response.ok) {

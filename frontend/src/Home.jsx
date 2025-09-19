@@ -31,6 +31,7 @@ function Home() {
         try {
             const response = await fetch(`http://localhost:8000/entries/${entryId}`, {
                 method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
             });
 
             if (!response.ok) throw new Error('Failed to delete entry');

@@ -56,6 +56,7 @@ def post_single_db_entry(new_entry: EntryIn) -> EntryOut | None:
 
 def delete_single_db_entry(entry_id: int) -> bool:
     with SessionLocal() as db:
+        db.query(DBTodos).filter(DBTodos.entry_id == entry_id).delete()
         stmt = select(DBEntries).where(DBEntries.entry_id == entry_id)
         entry = db.scalar(stmt)
         if not entry:

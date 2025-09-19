@@ -6,6 +6,7 @@ function Entry() {
     const [entry, setEntry] = useState(null);
     const [loading, setLoading] = useState(true);
     const [todos, setTodos] = useState([]);
+    const [newTodoText, setNewTodoText] = useState('');
     const { entryId } = useParams();
 
     useEffect(() => {
@@ -48,11 +49,36 @@ function Entry() {
         };
 
         fetchTodos();
-
-
-
-
     }, [entryId]);
+
+    const handleAddTodo = async () => {
+        if (newTodoText.trim() === '') return;
+
+        try {
+            const response = await fetch(`http://localhost:8000/entries/${entryId}/todos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    task: newTodoText,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add todo');
+            }
+
+            const newTodo = await response.json();
+
+            setTodos((prevTodos) => [...prevTodos, newTodo]);
+            setNewTodoText('');
+        } catch (error) {
+            console.error('Error adding todo:', error);
+            alert('Failed to add todo');
+        }
+    };
+
     const handleUpdateTodo = (updatedTodo) => {
         setTodos((prevTodos) =>
             prevTodos.map((todo) =>
@@ -91,8 +117,13 @@ function Entry() {
             <p>{entry.content}</p>
             <h3>Todos</h3>
 
-            <input type="text" placeholder="Add a todo ..." />
-            <button>Add Todo</button>
+            <input
+                type="text"
+                placeholder="Add a todo ..."
+                value={newTodoText}
+                onChange={(e) => setNewTodoText(e.target.value)}
+            />
+            <button onClick={handleAddTodo}>Add Todo</button>
 
             {Array.isArray(todos) && todos.length === 0 ? (
                 <p>No todos yet. Start by adding one above.</p>
@@ -118,28 +149,5 @@ function Entry() {
     );
 }
 
-// todo check box  functionality
-
-
-
-// add todo functionality functionaly
-function addTodo() {
-    // get the value from the input field
-    const todoInput = document.querySelector('input[type="text"]');
-    const todoText = todoInput.value;
-
-    // clear the input field
-    todoInput.value = '';
-
-    // add the todo to the list
-    console.log('Adding todo:', todoText);
-}
-// add event listener to the button
-const addButton = document.querySelector('button');
-if (addButton) {
-    addButton.addEventListener('click', addTodo);
-}
 
 export default Entry;
-
-

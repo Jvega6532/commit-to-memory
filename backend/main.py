@@ -75,7 +75,7 @@ async def get_todos_for_entry(entry_id: int):
     if validCheck:
         return validCheck
     else:
-        raise HTTPException(status_code=404, detail="No To Do items for this entry")
+        return []
 
 
 @app.post("/entries/{entry_id}/todos")

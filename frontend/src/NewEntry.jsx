@@ -1,45 +1,45 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-{/*
-    This will be the form for adding a new entry
-    to the entry database table
-    */}
-
-const handleAddEntry = async (event) => {   
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const newEntry = {
-        title: formData.get("title"),
-        content: formData.get("content"),
-    };
-
-    try {
-        const response = await fetch('http://localhost:8000/entries', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newEntry),
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const result = await response.json();
-        console.log('Entry added successfully:', result);
-        // Optionally, redirect to the home page or clear the form
-
-    } catch (error) {
-        console.error('Error adding entry:', error);
-    }
-}; 
 
 function NewEntry() {
+
+    const navigate = useNavigate();
+    const handleAddEntry = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const newEntry = {
+            title: formData.get("title"),
+            content: formData.get("content"),
+        };
+
+        try {
+            const response = await fetch('http://localhost:8000/entries', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newEntry),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json();
+            console.log('Entry added successfully:', result);
+
+            navigate('/entries/' + result.entry_id);
+
+        } catch (error) {
+            console.error('Error adding entry:', error);
+        }
+    };
+
+
     return (
         <div>
             <h2>New Journal Entry</h2>
-            <form>
+            <form onSubmit={handleAddEntry}>
                 <label>
                     Title:
                     <input type="text" name="title" />

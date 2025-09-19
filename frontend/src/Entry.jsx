@@ -118,4 +118,28 @@ function Entry() {
     );
 }
 
+// todo check box  functionality
+
+
+
+// add todo functionality functionaly
+function addTodo() {
+    // get the value from the input field
+    const todoInput = document.querySelector('input[type="text"]');
+    const todoText = todoInput.value;
+
+    // clear the input field
+    todoInput.value = '';
+
+    // add the todo to the list
+    console.log('Adding todo:', todoText);
+}
+// add event listener to the button
+const addButton = document.querySelector('button');
+if (addButton) {
+    addButton.addEventListener('click', addTodo);
+}
+
 export default Entry;
+
+

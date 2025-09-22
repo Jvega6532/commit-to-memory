@@ -6,17 +6,19 @@ function App() {
 
   return (
     <>
-      <h1 className="text-5xl font-extrabold text-center text-indigo-600 mt-6 mb-4 animate-bounce">
-        Commit To Memory
-      </h1>
-      <header>
-        <nav className="fixed top-0 left-0 w-full bg-gray-800 text-white py-4 shadow-md z-50">
-          <ul className="flex justify-center space-x-6">
-            <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
-            <li><Link to="/new_entry" className="hover:text-gray-300">New Entry</Link></li>
-          </ul>
-        </nav>
+      <nav className="fixed top-0 left-0 w-full flex items-center justify-between flex-wrap bg-gray-800 text-white p-6 shadow-md z-50">
+        <ul className="flex justify-center space-x-10">
+          <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
+          <li><Link to="/new_entry" className="hover:text-gray-300">New Entry</Link></li>
+        </ul>
+      </nav>
 
+
+      <header>
+
+        <h1 className="text-5xl font-extrabold text-indigo-600 text-center mt-6 mb-4 animate-bounce">
+          Commit To Memory
+        </h1>
       </header>
       <main>
         <Outlet />

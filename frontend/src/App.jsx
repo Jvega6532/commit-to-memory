@@ -10,12 +10,13 @@ function App() {
         Commit To Memory
       </h1>
       <header>
-        <nav> 
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/new_entry">New Entry</Link></li>
+        <nav className="fixed top-0 left-0 w-full bg-gray-800 text-white py-4 shadow-md z-50">
+          <ul className="flex justify-center space-x-6">
+            <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
+            <li><Link to="/new_entry" className="hover:text-gray-300">New Entry</Link></li>
           </ul>
         </nav>
+
       </header>
       <main>
         <Outlet />

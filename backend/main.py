@@ -11,6 +11,7 @@ from db import (
     delete_db_todo,
     update_db_todo,
     mark_db_todo_completed,
+    get_all_db_todos,
 )
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -67,6 +68,13 @@ async def update_entry(entry_id: int, updated_entry: EntryIn):
 
 # ---------------------------------------
 # todo endpoints
+@app.get("/todos")
+async def get_all_todos():
+    validCheck = get_all_db_todos()
+    if validCheck:
+        return validCheck
+    else:
+        return []
 
 
 @app.get("/entries/{entry_id}/todos")

@@ -3,25 +3,35 @@ import { Link } from 'react-router-dom';
 
 function Home() {
     const [entries, setEntries] = useState([]);
+    const [todos, setTodos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [editingEntryId, setEditingEntryId] = useState(null);
     const [editedTitle, setEditedTitle] = useState('');
     const [editedContent, setEditedContent] = useState('');
 
     useEffect(() => {
-        const fetchEntries = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/entries');
-                const data = await response.json();
-                setEntries(data);
+                const [entriesRes, todosRes] = await Promise.all([
+                    fetch('http://localhost:8000/entries'),
+                    fetch('http://localhost:8000/todos'),
+                ]);
+
+                const entriesData = await entriesRes.json();
+                const todosData = await todosRes.json();
+                const sortedEntries = entriesData.sort((a, b) => new Date(b.post_date) - new Date(a.post_date));
+
+
+                setEntries(sortedEntries);
+                setTodos(todosData);
             } catch (error) {
-                console.error('Error fetching entries:', error);
+                console.error('Error fetching data:', error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchEntries();
+        fetchData();
     }, []);
 
     const handleDeleteEntry = async (entryId) => {
@@ -84,11 +94,14 @@ function Home() {
         return <div>Loading...</div>;
     }
 
+
     return (
         <div>
             <h2>Entries</h2>
-            {entries.map((entry) =>
-                editingEntryId === entry.entry_id ? (
+            {entries.map((entry) => {
+                const relatedTodos = todos.filter(todo => todo.entry_id === entry.entry_id);
+                const completedTodos = relatedTodos.filter(todo => todo.is_completed);
+                return editingEntryId === entry.entry_id ? (
                     <div
                         key={entry.entry_id}
                     >
@@ -108,14 +121,12 @@ function Home() {
                         <button onClick={cancelEditing}>Cancel</button>
                     </div>
                 ) : (
-                    <div
-                        key={entry.entry_id}
-                    >
+                    <div key={entry.entry_id}>
                         <p>
                             <Link to={`/entries/${entry.entry_id}`}>
                                 <strong>{entry.title}</strong>
                             </Link>{' '}
-                            | {entry.post_date} | <button>0/5</button>
+                            | {entry.post_date} | <button>{completedTodos.length}/{relatedTodos.length}</button>
                         </p>
                         <p>{entry.content}</p>
                         <button onClick={() => handleDeleteEntry(entry.entry_id)}>
@@ -124,7 +135,7 @@ function Home() {
                         <button onClick={() => startEditing(entry)}>Edit Entry</button>
                     </div>
                 )
-            )}
+            })}
         </div>
     );
 }

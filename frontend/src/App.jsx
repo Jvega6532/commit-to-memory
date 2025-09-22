@@ -1,15 +1,5 @@
-import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import './App.css'
-
-
-{/*
-  We will need to set up the routes for NewEntry and Entry here
-  We will only have NewEntry accesible in the Nav bar
-  Entry will be accessed by clicking on an entry in the Home page
-  */}
-
-
 
 
 function App() {

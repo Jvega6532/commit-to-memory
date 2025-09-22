@@ -7,16 +7,7 @@ import Home from './Home.jsx'
 import NewEntry from './NewEntry.jsx'
 import Entry from './Entry.jsx'
 
-{/*
-  We will need to set up the routes for NewEntry and Entry here
-  We will only have NewEntry accesible in the Nav bar
-  Entry will be accessed by clicking on an entry in the Home page
-  */}
-
 createRoot(document.getElementById('root')).render(
-
-
-
 
   < StrictMode >
     <BrowserRouter>

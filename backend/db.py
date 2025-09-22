@@ -86,6 +86,21 @@ def update_db_entry(entry_id: int, updated_entry: EntryIn) -> EntryOut | None:
 
 # -----------------------------------------------
 # todos
+def get_all_db_todos() -> list[ToDoOut] | None:
+    with SessionLocal() as db:
+        todo_list = []
+        stmt = select(DBTodos)
+        db_todos = db.scalars(stmt).all()
+        for db_todo in db_todos:
+            todo_list.append(
+                ToDoOut(
+                    todo_id=db_todo.todo_id,
+                    entry_id=db_todo.entry_id,
+                    task=db_todo.task,
+                    is_completed=db_todo.is_completed,
+                )
+            )
+        return todo_list if todo_list else None
 
 
 def get_db_todos(entry_id: int) -> list[ToDoOut] | None:

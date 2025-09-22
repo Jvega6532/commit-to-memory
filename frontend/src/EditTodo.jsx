@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function EditableTodo({ todo, onUpdate, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);

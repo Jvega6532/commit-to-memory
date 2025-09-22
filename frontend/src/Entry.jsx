@@ -3,9 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import EditableTodo from './EditTodo.jsx';
 
 function Entry() {
-    const [entry, setEntry] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [entry, setEntry] = useState([]);
     const [todos, setTodos] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [newTodoText, setNewTodoText] = useState('');
     const { entryId } = useParams();
 

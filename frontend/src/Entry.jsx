@@ -3,52 +3,43 @@ import { useParams, Link } from 'react-router-dom';
 import EditableTodo from './EditTodo.jsx';
 
 function Entry() {
-    const [entry, setEntry] = useState([]);
+    const [entry, setEntry] = useState(null);
     const [todos, setTodos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [newTodoText, setNewTodoText] = useState('');
     const { entryId } = useParams();
 
     useEffect(() => {
-        const fetchEntry = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/entries/${entryId}`);
-                const data = await response.json();
-                console.log(data);
-                setEntry(data);
+                const [entryRes, todosRes] = await Promise.all([
+                    fetch(`http://localhost:8000/entries/${entryId}`),
+                    fetch(`http://localhost:8000/entries/${entryId}/todos`)
+                ]);
+
+                if (!entryRes.ok) {
+                    throw new Error('Failed to fetch entry');
+                }
+                const entryData = await entryRes.json();
+                setEntry(entryData);
+
+                if (todosRes.status === 404) {
+                    setTodos([]);
+                } else if (!todosRes.ok) {
+                    throw new Error('Failed to fetch todos');
+                } else {
+                    const todosData = await todosRes.json();
+                    setTodos(todosData);
+                }
+
             } catch (error) {
-                console.error('Error fetching entry:', error);
+                console.error('Error fetching data:', error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchEntry();
-    }, [entryId]);
-
-    useEffect(() => {
-        const fetchTodos = async () => {
-            try {
-                const response = await fetch(`http://localhost:8000/entries/${entryId}/todos`);
-
-                if (response.status === 404) {
-                    setTodos([]);
-                    return;
-                }
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch todos');
-                }
-
-                const data = await response.json();
-                console.log(data);
-                setTodos(data);
-            } catch (error) {
-                console.error('Error fetching todos:', error);
-            }
-        };
-
-        fetchTodos();
+        fetchData();
     }, [entryId]);
 
     const handleAddTodo = async () => {
@@ -60,9 +51,7 @@ function Entry() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    task: newTodoText,
-                }),
+                body: JSON.stringify({ task: newTodoText }),
             });
 
             if (!response.ok) {
@@ -70,8 +59,7 @@ function Entry() {
             }
 
             const newTodo = await response.json();
-
-            setTodos((prevTodos) => [...prevTodos, newTodo]);
+            setTodos((prev) => [...prev, newTodo]);
             setNewTodoText('');
         } catch (error) {
             console.error('Error adding todo:', error);
@@ -80,8 +68,8 @@ function Entry() {
     };
 
     const handleUpdateTodo = (updatedTodo) => {
-        setTodos((prevTodos) =>
-            prevTodos.map((todo) =>
+        setTodos((prev) =>
+            prev.map((todo) =>
                 todo.todo_id === updatedTodo.todo_id ? updatedTodo : todo
             )
         );
@@ -97,12 +85,13 @@ function Entry() {
                 throw new Error('Failed to delete todo');
             }
 
-            setTodos((prevTodos) => prevTodos.filter((todo) => todo.todo_id !== todoId));
+            setTodos((prev) => prev.filter((todo) => todo.todo_id !== todoId));
         } catch (error) {
             console.error(error);
             alert('Failed to delete todo');
         }
     };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -123,13 +112,12 @@ function Entry() {
                 value={newTodoText}
                 onChange={(e) => setNewTodoText(e.target.value)}
                 style={{ width: '100%', marginBottom: '0.5rem' }}
-
             />
             <button onClick={handleAddTodo}>Add Todo</button>
 
             {Array.isArray(todos) && todos.length === 0 ? (
                 <p>No todos yet. Start by adding one above.</p>
-            ) : Array.isArray(todos) ? (
+            ) : (
                 <ul>
                     {todos.map((todo) => (
                         <EditableTodo
@@ -140,8 +128,6 @@ function Entry() {
                         />
                     ))}
                 </ul>
-            ) : (
-                <p>No todos available</p>
             )}
 
             <br />
@@ -150,6 +136,5 @@ function Entry() {
         </div>
     );
 }
-
 
 export default Entry;

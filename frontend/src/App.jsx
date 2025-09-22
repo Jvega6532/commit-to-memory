@@ -6,9 +6,11 @@ function App() {
 
   return (
     <>
-      <h1>Commit To Memory</h1>
+      <h1 className="text-5xl font-extrabold text-center text-indigo-600 mt-6 mb-4 animate-bounce">
+        Commit To Memory
+      </h1>
       <header>
-        <nav>
+        <nav> 
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/new_entry">New Entry</Link></li>

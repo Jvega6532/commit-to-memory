@@ -16,9 +16,9 @@ function App() {
 
       <header>
 
-        <h1 className="text-5xl font-extrabold text-indigo-600 text-center mt-6 mb-4 animate-bounce">
-          Commit To Memory
-        </h1>
+        <h1 className="text-5xl font-extrabold text-indigo-600 text-center mt-6 mb-6 fade-in">
+        Commit To Memory
+      </h1>
       </header>
       <main>
         <Outlet />

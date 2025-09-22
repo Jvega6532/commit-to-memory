@@ -122,6 +122,8 @@ function Entry() {
                 placeholder="Add a todo ..."
                 value={newTodoText}
                 onChange={(e) => setNewTodoText(e.target.value)}
+                style={{ width: '100%', marginBottom: '0.5rem' }}
+
             />
             <button onClick={handleAddTodo}>Add Todo</button>
 

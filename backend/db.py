@@ -159,7 +159,11 @@ def mark_db_todo_completed(todo_id: int) -> ToDoOut | None | bool:
         entry = db.scalar(stmt)
         if not entry:
             return False
-        if not entry.is_completed:
+        if entry.is_completed:
+            entry.is_completed = False
+            db.commit()
+            db.refresh(entry)
+        else:
             entry.is_completed = True
             db.commit()
             db.refresh(entry)

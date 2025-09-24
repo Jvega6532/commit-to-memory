@@ -187,7 +187,7 @@ function Home() {
                                     <div className="flex gap-2">
                                         <button onClick={saveEditing} className="ring-focus px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-400 via-blue-500 to-blue-700">Save</button>
                                         <button onClick={cancelEditing} className="ring-focus px-4 py-2 rounded-xl gradient-cancel hover:opacity-90"
-                                        ></button>
+                                        >Cancel</button>
                                     </div>
                                 </div>
                             ) : (
@@ -235,7 +235,6 @@ function Home() {
                 })}
             </div>
 
-            {/* ---- Add Todo Modal ---- */}
             {modalOpen && (
                 <div className="fixed inset-0 z-50">
                     <div
@@ -271,7 +270,7 @@ function Home() {
                                         type="button"
                                         onClick={closeAddTodoModal}
                                         className="ring-focus px-4 py-2 rounded-xl gradient-cancel hover:opacity-90"
->
+                                    >
                                         Cancel
                                     </button>
                                     <button
@@ -288,7 +287,6 @@ function Home() {
                 </div>
             )}
 
-            {/* ---- Virtual High Five celebration ---- */}
             {highFive && (
                 <div className="fixed inset-0 z-[60] grid place-items-center pointer-events-none">
                     <div className="relative select-none">

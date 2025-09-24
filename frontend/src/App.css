@@ -6,11 +6,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&display=swap');
 
 
-/* ---- Your existing animations/utilities (kept) ---- */
+
 .font-display {
   font-family: "Outfit", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: 800;
-  /* tweak to taste */
   letter-spacing: -0.02em;
 }
 
@@ -50,81 +49,81 @@
     }
 
     .gradient-cancel {
-    @apply bg-gradient-to-r from-slate-200 via-slate-300 to-slate-400 text-slate-800 shadow;
+      @apply bg-gradient-to-r from-slate-200 via-slate-300 to-slate-400 text-slate-800 shadow;
+    }
+  }
+
+  .app-bg {
+    @apply min-h-screen bg-gradient-to-b from-sky-50 via-indigo-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950;
   }
 }
-    .app-bg {
-    @apply min-h-screen bg-gradient-to-b from-sky-50 via-indigo-50 to-white 
-           dark:from-slate-950 dark:via-slate-900 dark:to-slate-950;
+
+@keyframes dividerShimmer {
+  0% {
+    background-position: 0% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
   }
 }
 
-    @keyframes dividerShimmer {
-      0% {
-        background-position: 0% 0;
-      }
-
-      100% {
-        background-position: -200% 0;
-      }
-    }
-  }
 
 
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes scalePop {
-    0% {
-      transform: scale(.98);
-    }
-
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: 0% 0;
-    }
-
-    100% {
-      background-position: -200% 0;
-    }
-  }
-
-  @keyframes dividerGrow {
-    from {
-      transform: scaleX(0);
-      opacity: 0;
-    }
-
-    to {
-      transform: scaleX(1);
-      opacity: 1;
-    }
-  }
-
-  .ring-focus {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-400;
-  }
-
-  .surface {
-    @apply bg-white/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-white/10 backdrop-blur rounded-2xl;
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scalePop {
+  0% {
+    transform: scale(.98);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes dividerGrow {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.ring-focus {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-400;
+}
+
+.surface {
+  @apply bg-white/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-white/10 backdrop-blur rounded-2xl;
+}
+
 
 
 @media (prefers-reduced-motion: reduce) {
@@ -146,6 +145,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: #222b30;
 }
 
 .logo {

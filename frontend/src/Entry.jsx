@@ -76,6 +76,9 @@ function Entry() {
     };
 
     const handleDeleteTodo = async (todoId) => {
+        const confirmed = window.confirm('Are you sure you want to delete this entry?');
+        if (!confirmed) return;
+
         try {
             const response = await fetch(`http://localhost:8000/todos/${todoId}`, {
                 method: 'DELETE',
@@ -102,18 +105,16 @@ function Entry() {
 
     return (
         <div>
-            <h2>{entry.title} | {entry.post_date}</h2>
-            <p>{entry.content}</p>
-            <h3>Todos</h3>
+            <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 border border-gray-200 dark:border-gray-700 mb-4">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    {entry.title} <span className="text-gray-500 dark:text-gray-400 font-normal text-sm">| {entry.post_date}</span>
+                </h2>
+                <p className="text-gray-700 dark:text-gray-300 text-base">
+                    {entry.content}
+                </p>
+            </div>
 
-            <input
-                type="text"
-                placeholder="Add a todo ..."
-                value={newTodoText}
-                onChange={(e) => setNewTodoText(e.target.value)}
-                style={{ width: '100%', marginBottom: '0.5rem' }}
-            />
-            <button onClick={handleAddTodo}>Add Todo</button>
+            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Todos</h3>
 
             {Array.isArray(todos) && todos.length === 0 ? (
                 <p>No todos yet. Start by adding one above.</p>
@@ -130,7 +131,25 @@ function Entry() {
                 </ul>
             )}
 
-            <br />
+
+            <textarea
+                placeholder="Add a todo ..."
+                value={newTodoText}
+                onChange={(e) => setNewTodoText(e.target.value)}
+                rows={4}
+                className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+            />
+
+
+            <div className="flex justify-center">
+                <button
+                    onClick={handleAddTodo}
+                    className="ring-focus px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-400 via-blue-500 to-blue-700"
+                >
+                    Add Todo
+                </button>
+            </div>
+
             <br />
             <p><Link to="/">Return to Home</Link></p>
         </div>

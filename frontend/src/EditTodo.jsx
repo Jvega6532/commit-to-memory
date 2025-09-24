@@ -58,34 +58,66 @@ function EditableTodo({ todo, onUpdate, onDelete }) {
     };
 
     return (
-        <li>
-            <label>
-                <input type="checkbox" checked={todo.is_completed} onChange={handleCheckboxChange} />
+        <li className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md p-4 mb-4 flex items-center space-x-4">
+            <input
+                type="checkbox"
+                checked={todo.is_completed}
+                onChange={handleCheckboxChange}
+                className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+
+            <div className="flex-grow">
                 {isEditing ? (
                     <input
                         type="text"
                         value={editedTask}
                         onChange={(e) => setEditedTask(e.target.value)}
-                        style={{ width: '100%', marginBottom: '0.5rem' }}
-
+                        className="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     />
                 ) : (
-                    todo.task
+                    <span className={`select-none ${todo.is_completed ? 'line-through text-gray-400' : 'text-gray-900 dark:text-white'}`}>
+                        {todo.task}
+                    </span>
                 )}
-            </label>
+            </div>
 
-            {isEditing ? (
-                <>
-                    <button onClick={handleSaveClick} disabled={loading}>Save</button>
-                    <button onClick={handleCancelClick} disabled={loading}>Cancel</button>
-                </>
-            ) : (
-                <>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={() => onDelete(todo.todo_id)}>Delete</button>
-                </>
-            )}
+            <div className="flex space-x-2">
+                {isEditing ? (
+                    <>
+                        <button
+                            onClick={handleSaveClick}
+                            disabled={loading}
+                            className="px-3 py-1 rounded bg-blue-600 text-white disabled:bg-blue-300"
+                        >
+                            Save
+                        </button>
+                        <button
+                            onClick={handleCancelClick}
+                            disabled={loading}
+                            className="px-3 py-1 rounded bg-gray-400 text-white disabled:bg-gray-300"
+                        >
+                            Cancel
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <button
+                            onClick={() => setIsEditing(true)}
+                            className="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-600"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            onClick={() => onDelete(todo.todo_id)}
+                            className="ring-focus px-4 py-2 rounded-xl gradient-danger hover:opacity-90 scale-pop"
+                        >
+                            Delete
+                        </button>
+                    </>
+                )}
+            </div>
         </li>
+
     );
 }
 

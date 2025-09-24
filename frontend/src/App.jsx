@@ -4,7 +4,6 @@ import './App.css'
 function App() {
   return (
     <>
-      {/* Top nav with bright gradient (auto dark supported via tailwind colors) */}
       <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur border-b border-slate-200/70 dark:border-white/10
                        bg-gradient-to-r from-white via-sky-50 to-sky-100
                        dark:from-slate-950 dark:via-slate-950 dark:to-slate-900">

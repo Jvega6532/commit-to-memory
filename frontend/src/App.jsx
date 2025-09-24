@@ -15,18 +15,22 @@ function App() {
         </div>
       </nav>
 
-      <header className="pt-24 pb-6">
-        <h1
-          className="fade-in text-5xl font-extrabold text-transparent bg-clip-text
-                     bg-gradient-to-r from-sky-500 via-blue-600 to-blue-800
-                     drop-shadow-sm"
-        >
-          Commit To Memory
-        </h1>
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-          Track your projects & todos — and keep the momentum.
-        </p>
-      </header>
+      <header className="pt-8 pb-4"> 
+  <h1
+    className="fade-in font-display tracking-tight text-5xl font-extrabold text-transparent bg-clip-text
+               bg-gradient-to-r from-sky-500 via-blue-600 to-blue-800 drop-shadow-sm"
+  >
+    Commit To Memory
+  </h1>
+
+  <div className="mx-auto mt-3 sm:mt-4 w-48 sm:w-64 px-4">
+    <div className="divider-brand divider-animated divider-shimmer" />
+  </div>
+
+  <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+    Track your projects & todos — and keep the momentum.
+  </p>
+</header>
 
       <main className="mx-auto max-w-6xl text-left">
         <Outlet />

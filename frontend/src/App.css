@@ -2,18 +2,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&display=swap');
+
 
 /* ---- Your existing animations/utilities (kept) ---- */
+.font-display {
+    font-family: "Outfit", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 800; /* tweak to taste */
+    letter-spacing: -0.02em;
+  }
+
+
 @layer utilities {
   .fade-in { @apply opacity-0 translate-y-2; animation: fadeIn .4s ease-out forwards; }
   .slide-up { @apply opacity-0 translate-y-3; animation: slideUp .45s cubic-bezier(.22,1,.36,1) forwards; }
   .scale-pop { animation: scalePop .18s ease-out both; }
-
+  .divider-brand {@apply h-1.5 rounded-full bg-gradient-to-r from-sky-300 via-blue-500 to-blue-700 shadow;}
+  
+  .divider-animated {
+    transform-origin: center;
+    animation: dividerGrow .7s ease-out both;
+    
   .shimmer {
     background: linear-gradient(90deg, rgba(255,255,255,.06) 25%, rgba(255,255,255,.16) 37%, rgba(255,255,255,.06) 63%);
     background-size: 400% 100%;
     animation: shimmer 1.25s linear infinite;
   }
+
+  .divider-shimmer {
+    background-size: 200% 100%;
+    animation: dividerShimmer 1.8s linear infinite;
+  }
+  @keyframes dividerShimmer {
+    0%   { background-position: 0% 0; }
+    100% { background-position: -200% 0; }
+  }
+}
+
 
   @keyframes fadeIn {
     to { opacity: 1; transform: translateY(0); }
@@ -30,17 +56,21 @@
     100% { background-position: -200% 0; }
   }
 
-  /* New tiny helpers */
+  @keyframes dividerGrow {
+    from { transform: scaleX(0); opacity: 0; }
+    to   { transform: scaleX(1); opacity: 1; }
+  }
+
   .ring-focus { @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-400; }
   .surface { @apply bg-white/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-white/10 backdrop-blur rounded-2xl; }
 }
 
-/* Respect reduced motion */
+
 @media (prefers-reduced-motion: reduce) {
-  .fade-in, .slide-up, .scale-pop { animation: none !important; transform: none !important; opacity: 1 !important; }
+  .fade-in, .slide-up, .scale-pop, .divider-animated, .divider-shimmer { animation: none !important; transform: none !important; opacity: 1 !important; }
 }
 
-/* --- App layout bits (kept from Vite starter) --- */
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -60,7 +90,7 @@
 .card { padding: 2em; }
 .read-the-docs { color: #888; }
 
-/* --- Progress bar (kept) --- */
+
 .progress-bar-container {
   width: 100%;
   height: 12px;
@@ -77,14 +107,14 @@
   transition: width 0.5s ease-in-out;
 }
 
-/* Slightly slower fade for hero H1 */
+
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(-10px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 .fade-in { animation: fadeIn 1.2s ease-out forwards; }
 
-/* --- Virtual High Five burst --- */
+
 @keyframes hf-burst {
   0% { opacity: 0; transform: scale(.6); }
   50% { opacity: 1; transform: scale(1.02); }

@@ -186,7 +186,8 @@ function Home() {
                                     />
                                     <div className="flex gap-2">
                                         <button onClick={saveEditing} className="ring-focus px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-400 via-blue-500 to-blue-700">Save</button>
-                                        <button onClick={cancelEditing} className="ring-focus px-4 py-2 rounded-xl bg-slate-900/5 dark:bg-white/10">Cancel</button>
+                                        <button onClick={cancelEditing} className="ring-focus px-4 py-2 rounded-xl gradient-cancel hover:opacity-90"
+                                        ></button>
                                     </div>
                                 </div>
                             ) : (
@@ -269,8 +270,8 @@ function Home() {
                                     <button
                                         type="button"
                                         onClick={closeAddTodoModal}
-                                        className="ring-focus px-4 py-2 rounded-xl bg-slate-900/5 dark:bg-white/10"
-                                    >
+                                        className="ring-focus px-4 py-2 rounded-xl gradient-cancel hover:opacity-90"
+>
                                         Cancel
                                     </button>
                                     <button

@@ -209,10 +209,10 @@ function Home() {
 
                                     <div className="mt-5 flex flex-wrap gap-2">
                                         <button
-                                            onClick={() => handleDeleteEntry(entry.entry_id)}
-                                            className="ring-focus px-4 py-2 rounded-xl text-white bg-rose-600 hover:bg-rose-500"
+                                            onClick={() => openAddTodoModal(entry)}
+                                            className="ring-focus px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-400 via-blue-500 to-blue-700"
                                         >
-                                            Delete
+                                            Add Todo
                                         </button>
                                         <button
                                             onClick={() => startEditing(entry)}
@@ -221,10 +221,10 @@ function Home() {
                                             Edit
                                         </button>
                                         <button
-                                            onClick={() => openAddTodoModal(entry)}
-                                            className="ring-focus px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-400 via-blue-500 to-blue-700"
+                                            onClick={() => handleDeleteEntry(entry.entry_id)}
+                                            className="ring-focus px-4 py-2 rounded-xl gradient-danger hover:opacity-90 scale-pop"
                                         >
-                                            Add Todo
+                                            Delete
                                         </button>
                                     </div>
                                 </>

@@ -8,66 +8,126 @@
 
 /* ---- Your existing animations/utilities (kept) ---- */
 .font-display {
-    font-family: "Outfit", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-weight: 800; /* tweak to taste */
-    letter-spacing: -0.02em;
-  }
-
-
-@layer utilities {
-  .fade-in { @apply opacity-0 translate-y-2; animation: fadeIn .4s ease-out forwards; }
-  .slide-up { @apply opacity-0 translate-y-3; animation: slideUp .45s cubic-bezier(.22,1,.36,1) forwards; }
-  .scale-pop { animation: scalePop .18s ease-out both; }
-  .divider-brand {@apply h-1.5 rounded-full bg-gradient-to-r from-sky-300 via-blue-500 to-blue-700 shadow;}
-  
-  .divider-animated {
-    transform-origin: center;
-    animation: dividerGrow .7s ease-out both;
-    
-  .shimmer {
-    background: linear-gradient(90deg, rgba(255,255,255,.06) 25%, rgba(255,255,255,.16) 37%, rgba(255,255,255,.06) 63%);
-    background-size: 400% 100%;
-    animation: shimmer 1.25s linear infinite;
-  }
-
-  .divider-shimmer {
-    background-size: 200% 100%;
-    animation: dividerShimmer 1.8s linear infinite;
-  }
-  @keyframes dividerShimmer {
-    0%   { background-position: 0% 0; }
-    100% { background-position: -200% 0; }
-  }
+  font-family: "Outfit", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 800;
+  /* tweak to taste */
+  letter-spacing: -0.02em;
 }
 
 
+@layer utilities {
+  .fade-in {
+    @apply opacity-0 translate-y-2;
+    animation: fadeIn .4s ease-out forwards;
+  }
+
+  .slide-up {
+    @apply opacity-0 translate-y-3;
+    animation: slideUp .45s cubic-bezier(.22, 1, .36, 1) forwards;
+  }
+
+  .scale-pop {
+    animation: scalePop .18s ease-out both;
+  }
+
+  .divider-brand {
+    @apply h-1.5 rounded-full bg-gradient-to-r from-sky-300 via-blue-500 to-blue-700 shadow;
+  }
+
+  .divider-animated {
+    transform-origin: center;
+    animation: dividerGrow .7s ease-out both;
+
+    .shimmer {
+      background: linear-gradient(90deg, rgba(255, 255, 255, .06) 25%, rgba(255, 255, 255, .16) 37%, rgba(255, 255, 255, .06) 63%);
+      background-size: 400% 100%;
+      animation: shimmer 1.25s linear infinite;
+    }
+
+    .divider-shimmer {
+      background-size: 200% 100%;
+      animation: dividerShimmer 1.8s linear infinite;
+    }
+
+    @keyframes dividerShimmer {
+      0% {
+        background-position: 0% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  }
+
+
   @keyframes fadeIn {
-    to { opacity: 1; transform: translateY(0); }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
   @keyframes slideUp {
-    to { opacity: 1; transform: translateY(0); }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
   @keyframes scalePop {
-    0% { transform: scale(.98); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(.98);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
+
   @keyframes shimmer {
-    0% { background-position: 0% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+      background-position: 0% 0;
+    }
+
+    100% {
+      background-position: -200% 0;
+    }
   }
 
   @keyframes dividerGrow {
-    from { transform: scaleX(0); opacity: 0; }
-    to   { transform: scaleX(1); opacity: 1; }
+    from {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+
+    to {
+      transform: scaleX(1);
+      opacity: 1;
+    }
   }
 
-  .ring-focus { @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-400; }
-  .surface { @apply bg-white/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-white/10 backdrop-blur rounded-2xl; }
+  .ring-focus {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-400;
+  }
+
+  .surface {
+    @apply bg-white/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-white/10 backdrop-blur rounded-2xl;
+  }
 }
 
 
 @media (prefers-reduced-motion: reduce) {
-  .fade-in, .slide-up, .scale-pop, .divider-animated, .divider-shimmer { animation: none !important; transform: none !important; opacity: 1 !important; }
+
+  .fade-in,
+  .slide-up,
+  .scale-pop,
+  .divider-animated,
+  .divider-shimmer {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 
 
@@ -78,17 +138,44 @@
   text-align: center;
 }
 
-.logo { height: 6em; padding: 1.5em; will-change: filter; transition: filter 300ms; }
-.logo:hover { filter: drop-shadow(0 0 2em #646cffaa); }
-.logo.react:hover { filter: drop-shadow(0 0 2em #61dafbaa); }
-
-@keyframes logo-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo { animation: logo-spin infinite 20s linear; }
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
 }
 
-.card { padding: 2em; }
-.read-the-docs { color: #888; }
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
 
 
 .progress-bar-container {
@@ -98,26 +185,61 @@
   border-radius: 9999px;
   overflow: hidden;
 }
+
 .progress-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, #38bdf8, #0ea5e9, #0369a1);
   border-radius: 9999px;
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-weight: 600; font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 10px;
   transition: width 0.5s ease-in-out;
 }
 
 
 @keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(-10px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.fade-in { animation: fadeIn 1.2s ease-out forwards; }
+
+.fade-in {
+  animation: fadeIn 1.2s ease-out forwards;
+}
 
 
 @keyframes hf-burst {
-  0% { opacity: 0; transform: scale(.6); }
-  50% { opacity: 1; transform: scale(1.02); }
-  100% { opacity: 0; transform: scale(1.2); }
+  0% {
+    opacity: 0;
+    transform: scale(.6);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
 }
-.highfive-burst { animation: hf-burst 700ms ease-out both; }
+
+.highfive-burst {
+  animation: hf-burst 700ms ease-out both;
+}
+
+@layer utilities {
+  .gradient-danger {
+    @apply bg-gradient-to-r from-rose-400 via-rose-500 to-rose-700 text-white shadow;
+  }
+}

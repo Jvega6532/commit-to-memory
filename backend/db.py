@@ -10,7 +10,7 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(engine)
 
 
-def get_all_db_entries() -> list[EntryOut] | None:
+def get_all_db_entries() -> list[EntryOut]:
     with SessionLocal() as db:
         db_list_entries = []
         stmt = select(DBEntries)

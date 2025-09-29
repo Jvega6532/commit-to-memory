@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import EditEntryForm from './EditEntry';
+
 
 function Home() {
     const [entries, setEntries] = useState([]);
     const [todos, setTodos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [editingEntryId, setEditingEntryId] = useState(null);
-    const [editedTitle, setEditedTitle] = useState('');
-    const [editedContent, setEditedContent] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
     const [activeEntry, setActiveEntry] = useState(null);
     const [newTodoText, setNewTodoText] = useState('');
@@ -64,7 +64,6 @@ function Home() {
             const prev = prevCompletionMap.current.get(entry.entry_id) ?? 0;
             if (pct === 100 && prev < 100 && total > 0) {
                 setHighFive(true);
-                // auto close after a bit
                 const id = setTimeout(() => setHighFive(false), 1000);
                 return () => clearTimeout(id);
             }
@@ -84,37 +83,10 @@ function Home() {
             if (!response.ok) throw new Error('Failed to delete entry');
 
             setEntries((prev) => prev.filter((e) => e.entry_id !== entryId));
-            setTodos((prev) => prev.filter((t) => t.entry_id !== entryId)); // clean up
+            setTodos((prev) => prev.filter((t) => t.entry_id !== entryId));
         } catch (error) {
             console.error(error);
             alert('Failed to delete entry');
-        }
-    };
-
-    const startEditing = (entry) => {
-        setEditingEntryId(entry.entry_id);
-        setEditedTitle(entry.title);
-        setEditedContent(entry.content);
-    };
-    const cancelEditing = () => setEditingEntryId(null);
-
-    const saveEditing = async () => {
-        try {
-            const response = await fetch(`http://localhost:8000/entries/${editingEntryId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title: editedTitle, content: editedContent }),
-            });
-            if (!response.ok) throw new Error('Failed to update entry');
-
-            const updatedEntry = await response.json();
-            setEntries((prev) =>
-                prev.map((e) => (e.entry_id === updatedEntry.entry_id ? updatedEntry : e))
-            );
-            setEditingEntryId(null);
-        } catch (error) {
-            console.error(error);
-            alert('Failed to update entry');
         }
     };
 
@@ -171,25 +143,16 @@ function Home() {
                     return (
                         <div key={entry.entry_id} className="surface p-5 fade-in hover:shadow-lg transition">
                             {editingEntryId === entry.entry_id ? (
-                                <div>
-                                    <input
-                                        type="text"
-                                        value={editedTitle}
-                                        onChange={(e) => setEditedTitle(e.target.value)}
-                                        className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-white/90 dark:bg-slate-900/60 px-3 py-2 text-sm ring-focus mb-2"
-                                    />
-                                    <textarea
-                                        value={editedContent}
-                                        onChange={(e) => setEditedContent(e.target.value)}
-                                        rows={4}
-                                        className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-white/90 dark:bg-slate-900/60 px-3 py-2 text-sm ring-focus mb-2"
-                                    />
-                                    <div className="flex gap-2">
-                                        <button onClick={saveEditing} className="ring-focus px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-400 via-blue-500 to-blue-700">Save</button>
-                                        <button onClick={cancelEditing} className="ring-focus px-4 py-2 rounded-xl gradient-cancel hover:opacity-90"
-                                        >Cancel</button>
-                                    </div>
-                                </div>
+                                <EditEntryForm
+                                    entry={entry}
+                                    onCancel={() => setEditingEntryId(null)}
+                                    onSave={(updatedEntry) => {
+                                        setEntries((prev) =>
+                                            prev.map((e) => (e.entry_id === updatedEntry.entry_id ? updatedEntry : e))
+                                        );
+                                        setEditingEntryId(null);
+                                    }}
+                                />
                             ) : (
                                 <>
                                     <p className="text-sm text-slate-500 dark:text-slate-300">{entry.post_date}</p>
@@ -216,7 +179,7 @@ function Home() {
                                             Add Todo
                                         </button>
                                         <button
-                                            onClick={() => startEditing(entry)}
+                                            onClick={() => setEditingEntryId(entry.entry_id)}
                                             className="ring-focus px-4 py-2 rounded-xl bg-slate-900/5 dark:bg-white/10"
                                         >
                                             Edit

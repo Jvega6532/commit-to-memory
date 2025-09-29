@@ -31,7 +31,7 @@ app.add_middleware(
 
 
 @app.get("/entries")
-async def get_all_entries():
+async def get_all_entries() -> list[EntryOut]:
     return get_all_db_entries()
 
 

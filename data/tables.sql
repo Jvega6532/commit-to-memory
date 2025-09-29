@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS todos;
 CREATE TABLE entries(
     entry_id SERIAL PRIMARY KEY,
     post_date DATE NOT NULL,
+    proj_link VARCHAR(240) NOT NULL,
     title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL
 );
@@ -22,11 +23,11 @@ CREATE TABLE todos (
     is_completed BOOLEAN
 );
 
-INSERT INTO entries (post_date,title, content) VALUES
-('2025-09-12','Creating Get Request','Succesfully created with commentary added '),
-('2025-09-09','Logging Test Results','Need to locate the source of the bug '),
-('2025-08-28','Fixing the For Loop in main.py','Fixing the infinite that was happening'),
-('2025-08-26','Fixing db.py path','Closing off path and fixing the endpoint scramble');
+INSERT INTO entries (post_date,proj_link, title, content) VALUES
+('2025-09-12','https://www.google.com/','Creating Get Request','Succesfully created with commentary added '),
+('2025-09-09','https://www.google.com/','Logging Test Results','Need to locate the source of the bug '),
+('2025-08-28','https://www.google.com/','Fixing the For Loop in main.py','Fixing the infinite that was happening'),
+('2025-08-26','https://www.google.com/','Fixing db.py path','Closing off path and fixing the endpoint scramble');
 
 INSERT INTO todos (entry_id,task,is_completed) VALUES
 (1,'Fully connected the path ','TRUE'),

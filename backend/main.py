@@ -36,7 +36,7 @@ async def get_all_entries() -> list[EntryOut]:
 
 
 @app.get("/entries/{entry_id}")
-async def get_single_entry(entry_id: int):
+async def get_single_entry(entry_id: int) -> EntryOut:
     entry = get_single_db_entry(entry_id=entry_id)
     if not entry:
         raise HTTPException(status_code=404, detail="Entry not found")
@@ -44,7 +44,7 @@ async def get_single_entry(entry_id: int):
 
 
 @app.post("/entries")
-async def post_entry(new_entry: EntryIn):
+async def post_entry(new_entry: EntryIn) -> EntryOut:
     return post_single_db_entry(new_entry)
 
 
@@ -58,7 +58,7 @@ async def delete_entry(entry_id: int):
 
 
 @app.put("/entries/{entry_id}")
-async def update_entry(entry_id: int, updated_entry: EntryIn):
+async def update_entry(entry_id: int, updated_entry: EntryIn) -> EntryOut:
     confirmUpdate = update_db_entry(entry_id, updated_entry)
     if confirmUpdate:
         return confirmUpdate

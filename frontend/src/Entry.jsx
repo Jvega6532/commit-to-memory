@@ -112,6 +112,16 @@ function Entry() {
                 <p className="text-gray-700 dark:text-gray-300 text-base">
                     {entry.content}
                 </p>
+                <p className="mt-2 break-all">
+                    <a
+                        href={entry.proj_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                    >
+                        {entry.proj_link}
+                    </a>
+                </p>
             </div>
 
             <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Todos</h3>

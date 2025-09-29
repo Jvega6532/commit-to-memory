@@ -12,6 +12,7 @@ class DBEntries(Base):
     __tablename__ = "entries"
     entry_id: Mapped[int] = mapped_column(primary_key=True, index=True)
     post_date: Mapped[date] = mapped_column()
+    proj_link: Mapped[str] = mapped_column()
     title: Mapped[str] = mapped_column()
     content: Mapped[str] = mapped_column()
 

@@ -157,10 +157,19 @@ function Home() {
                                 <>
                                     <p className="text-sm text-slate-500 dark:text-slate-300">{entry.post_date}</p>
                                     <h3 className="mt-1 text-lg font-semibold">
-                                        <Link to={`/entries/${entry.entry_id}`} className="hover:underline">{entry.title}</Link>
+                                        <Link to={`/entries/${entry.entry_id}`} className="hover:underline">
+                                            {entry.title}
+                                        </Link>
                                     </h3>
                                     <p className="mt-1 text-sm text-slate-700 dark:text-slate-200">{entry.content}</p>
-
+                                    <a
+                                        href={entry.proj_link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-2 block text-sm text-blue-600 hover:underline"
+                                    >
+                                        View Project
+                                    </a>
                                     <div className="mt-4">
                                         <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300 mb-1">
                                             <span>{done}/{total} completed</span>

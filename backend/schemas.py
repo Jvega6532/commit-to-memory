@@ -3,6 +3,7 @@ from datetime import date
 
 
 class EntryIn(BaseModel):
+    proj_link: str
     title: str
     content: str
 

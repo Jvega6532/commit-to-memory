@@ -20,6 +20,7 @@ def get_all_db_entries() -> list[EntryOut]:
                 EntryOut(
                     entry_id=db_entry.entry_id,
                     post_date=db_entry.post_date,
+                    proj_link=db_entry.proj_link,
                     title=db_entry.title,
                     content=db_entry.content,
                 )
@@ -35,6 +36,7 @@ def get_single_db_entry(entry_id: int) -> EntryOut | None:
             return EntryOut(
                 entry_id=db_entry.entry_id,
                 post_date=db_entry.post_date,
+                proj_link=db_entry.proj_link,
                 title=db_entry.title,
                 content=db_entry.content,
             )
@@ -49,6 +51,7 @@ def post_single_db_entry(new_entry: EntryIn) -> EntryOut | None:
         return EntryOut(
             entry_id=db_entry.entry_id,
             post_date=db_entry.post_date,
+            proj_link=db_entry.proj_link,
             title=db_entry.title,
             content=db_entry.content,
         )
@@ -79,6 +82,7 @@ def update_db_entry(entry_id: int, updated_entry: EntryIn) -> EntryOut | None:
         return EntryOut(
             entry_id=entry.entry_id,
             post_date=entry.post_date,
+            proj_link=entry.proj_link,
             title=entry.title,
             content=entry.content,
         )

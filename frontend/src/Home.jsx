@@ -227,7 +227,7 @@ function Home() {
                                     </h3>
                                     <p className="text-sm text-gray-700 pr-20 mb-3">{entry.content}</p>
                                     {entry.proj_link && (
-                                       <a 
+                                        <a
                                             href={entry.proj_link}
                                             target="_blank"
                                             rel="noopener noreferrer"
@@ -319,7 +319,7 @@ function Home() {
                                     <div className="mt-6 grid grid-cols-3 gap-3">
                                         <button
                                             onClick={() => openAddTodoModal(entry)}
-                                            className="flex-1 min-w-[110px] bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-white px-3 py-2.5 rounded-xl text-sm font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus whitespace-nowrap"
+                                            className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
                                         >
                                             Add Todo
                                         </button>

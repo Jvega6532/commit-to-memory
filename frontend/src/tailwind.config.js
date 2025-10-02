@@ -1,17 +1,16 @@
-type { import('tailwindcss').Config }
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
-  darkMode: "false",
+  darkMode: "class",  // Changed from false to "class"
   theme: {
     extend: {
       colors: {
         brand: {
-          light: "#bae6fd",
+          light: "#bae6fd", 
           DEFAULT: "#0ea5e9",
-          dark: "#0369a1",
+          dark: "#0369a1", 
         },
       },
     },

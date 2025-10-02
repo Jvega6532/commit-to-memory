@@ -11,7 +11,7 @@ function Home() {
     const [activeEntry, setActiveEntry] = useState(null);
     const [newTodoText, setNewTodoText] = useState('');
     const [savingTodo, setSavingTodo] = useState(false);
-    const [highFive, setHighFive] = useState(false);
+    // const [highFive, setHighFive] = useState(false);
     const prevCompletionMap = useRef(new Map());
     const [progressAnimatingEntry, setProgressAnimatingEntry] = useState(null);
     const [clickedProgress, setClickedProgress] = useState(null);
@@ -65,11 +65,11 @@ function Home() {
                 setTimeout(() => setProgressAnimatingEntry(null), 1500);
             }
 
-            if (pct === 100 && prev < 100 && total > 0) {
-                setHighFive(true);
-                const id = setTimeout(() => setHighFive(false), 1000);
-                return () => clearTimeout(id);
-            }
+            // if (pct === 100 && prev < 100 && total > 0) {
+            //     setHighFive(true);
+            //     const id = setTimeout(() => setHighFive(false), 1000);
+            //     return () => clearTimeout(id);
+            // }
             prevCompletionMap.current.set(entry.entry_id, pct);
         });
     }, [entries, todos, todosByEntry]);

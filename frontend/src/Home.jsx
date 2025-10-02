@@ -59,12 +59,12 @@ function Home() {
             const pct = total ? Math.round((done / total) * 100) : 0;
 
             const prev = prevCompletionMap.current.get(entry.entry_id) ?? 0;
-            
+
             if (pct !== prev && total > 0) {
                 setProgressAnimatingEntry(entry.entry_id);
                 setTimeout(() => setProgressAnimatingEntry(null), 1500);
             }
-            
+
             if (pct === 100 && prev < 100 && total > 0) {
                 setHighFive(true);
                 const id = setTimeout(() => setHighFive(false), 1000);
@@ -98,7 +98,7 @@ function Home() {
         setNewTodoText('');
         setModalOpen(true);
     };
-    
+
     const closeAddTodoModal = () => setModalOpen(false);
 
     const addTodo = async (e) => {
@@ -163,16 +163,16 @@ function Home() {
                     const total = relatedTodos.length;
                     const done = completedTodos.length;
                     const pct = total ? Math.round((done / total) * 100) : 0;
-                    
+
                     const previewHeight = clickedProgress === entry.entry_id ? Math.min(18, (total * 1.5) + 5) : 0;
 
                     return (
-                        <div 
-                            key={entry.entry_id} 
+                        <div
+                            key={entry.entry_id}
                             className="relative bg-white/85 backdrop-blur border border-sky-blue/30 rounded-2xl p-6 pr-20 animate-fade-in transition-all overflow-visible dark:bg-slate-900/70 dark:border-white/10"
                             style={{ paddingBottom: clickedProgress === entry.entry_id ? `${previewHeight}rem` : '1.5rem' }}
                         >
-                                                        {/* Calendar Icon */}
+                            {/* Calendar Icon */}
                             <div className="absolute top-3 right-3 w-14 h-16 bg-gradient-to-br from-coral to-peach rounded-lg shadow-calendar flex flex-col overflow-hidden">
                                 <div className="w-full h-4 bg-ocean-deep rounded-t-lg flex items-center justify-center">
                                     <span className="text-white text-[9px] font-bold uppercase tracking-wide">
@@ -199,7 +199,6 @@ function Home() {
                                 />
                             ) : (
                                 <>
-                                    <p className="text-sm text-gray-500 dark:text-slate-300 mb-2">{entry.post_date}</p>
                                     <h3 className="mt-1 text-lg font-semibold text-ocean-deep pr-4">
                                         <Link to={`/entries/${entry.entry_id}`} className="hover:underline">
                                             {entry.title}
@@ -216,9 +215,9 @@ function Home() {
                                             View Project →
                                         </a>
                                     )}
-                                    
+
                                     {/* Progress Section */}
-                                    <div 
+                                    <div
                                         className="mt-4 relative cursor-pointer"
                                         onClick={() => handleProgressClick(entry.entry_id)}
                                     >
@@ -226,17 +225,15 @@ function Home() {
                                             <span>{done}/{total} completed</span>
                                             <span>{pct}%</span>
                                         </div>
-                                        <div className="w-full h-3 bg-light-blue/30 rounded-full overflow-hidden">
-                                            <div 
-                                                className={`h-full rounded-full transition-all duration-500 ${
-                                                    progressAnimatingEntry === entry.entry_id 
-                                                    ? 'animate-progress-neon' 
-                                                    : 'bg-gradient-to-r from-aqua via-sky-blue to-ocean-deep'
-                                                }`}
-                                                style={{ width: `${pct}%` }} 
+                                        <div className="w-full h-3 bg-cyan-100 rounded-full overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full transition-all duration-500 ${progressAnimatingEntry === entry.entry_id
+                                                    ? 'animate-progress-neon'
+                                                    : 'bg-gradient-to-r from-cyan-400 via-sky-400 to-teal-500'
+                                                    }`}
+                                                style={{ width: `${pct}%` }}
                                             />
                                         </div>
-
                                         {/* Todo Preview */}
                                         {clickedProgress === entry.entry_id && (
                                             <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur border border-sky-blue/30 rounded-2xl p-6 shadow-xl z-[1000] max-h-[500px] overflow-y-auto dark:bg-slate-900/98 dark:border-white/10">
@@ -251,16 +248,16 @@ function Home() {
                                                     ✕
                                                 </button>
                                                 <h4 className="font-semibold mb-1 text-center text-ocean-deep">
-                                                    {relatedTodos.length === 0 ? '💻 Ready to Push?' : 
-                                                     done === total && total > 0 ? '✅ Branch Merged!' : 
-                                                     done === 0 ? '🚀 Time to Commit!' : 
-                                                     '⚡ Building...'}
+                                                    {relatedTodos.length === 0 ? '💻 Ready to Push?' :
+                                                        done === total && total > 0 ? '✅ Branch Merged!' :
+                                                            done === 0 ? '🚀 Time to Commit!' :
+                                                                '⚡ Building...'}
                                                 </h4>
                                                 <p className="text-xs text-center mb-4 text-gray-600 dark:text-gray-300">
-                                                    {relatedTodos.length === 0 ? 'No todos yet — initialize your first task!' : 
-                                                     done === total && total > 0 ? `All ${total} todos deployed!` : 
-                                                     done === 0 ? `${total} tasks in backlog` : 
-                                                     `${total - done} pending • ${done} shipped`}
+                                                    {relatedTodos.length === 0 ? 'No todos yet — initialize your first task!' :
+                                                        done === total && total > 0 ? `All ${total} todos deployed!` :
+                                                            done === 0 ? `${total} tasks in backlog` :
+                                                                `${total - done} pending • ${done} shipped`}
                                                 </p>
                                                 {relatedTodos.length === 0 ? (
                                                     <p className="text-sm text-gray-500 text-center">Add your first todo to get started!</p>
@@ -268,10 +265,10 @@ function Home() {
                                                     <ul className="space-y-2 text-sm">
                                                         {relatedTodos.map((todo) => (
                                                             <li key={todo.todo_id} className="flex items-center gap-2">
-                                                                <input 
-                                                                    type="checkbox" 
-                                                                    checked={todo.is_completed} 
-                                                                    readOnly 
+                                                                <input
+                                                                    type="checkbox"
+                                                                    checked={todo.is_completed}
+                                                                    readOnly
                                                                     className="w-4 h-4"
                                                                 />
                                                                 <span className={todo.is_completed ? 'line-through text-gray-400' : 'text-gray-700 dark:text-gray-200'}>
@@ -310,11 +307,11 @@ function Home() {
                                     {/* Days Counter */}
                                     <div className="mt-4 pt-3 border-t border-sky-blue/30 dark:border-white/10 text-center">
                                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                                            ⏰ {getDaysOpen(entry.post_date) === 0 
-                                                ? 'Freshly initialized today!' 
-                                                : getDaysOpen(entry.post_date) === 1 
-                                                ? 'Still compiling... 1 day in production' 
-                                                : `Runtime: ${getDaysOpen(entry.post_date)} days in production`}
+                                            ⏰ {getDaysOpen(entry.post_date) === 0
+                                                ? 'Freshly initialized today!'
+                                                : getDaysOpen(entry.post_date) === 1
+                                                    ? 'Still compiling... 1 day in production'
+                                                    : `Runtime: ${getDaysOpen(entry.post_date)} days in production`}
                                         </p>
                                     </div>
                                 </>
@@ -379,7 +376,7 @@ function Home() {
                 </div>
             )}
 
-            {/* High Five Animation */}
+            {/* High Five Animation
             {highFive && (
                 <div className="fixed inset-0 z-[60] grid place-items-center pointer-events-none">
                     <div className="relative select-none">
@@ -387,7 +384,7 @@ function Home() {
                         <span className="absolute inset-0 -z-10 mx-auto my-auto block h-28 w-28 rounded-full border-4 border-sky-400/70 animate-highfive-burst" />
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     );
 }

@@ -21,7 +21,7 @@ function App() {
         </div>
       </nav>
 
-      <header className="pt-24 pb-8 text-center"> 
+      <header className="pt-24 pb-8 text-center">
         <div className="inline-block p-8 border-3 border-transparent rounded-xl animate-neon-flash">
           <h1 className="font-display tracking-tight text-5xl font-extrabold bg-gradient-to-r from-sky-500 via-blue-600 to-teal-600 bg-clip-text text-transparent drop-shadow-sm">
             Commit To Memory

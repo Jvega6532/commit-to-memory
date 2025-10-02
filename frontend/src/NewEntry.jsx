@@ -5,7 +5,7 @@ function NewEntry() {
     const navigate = useNavigate();
     const [todos, setTodos] = useState([]);
     const [newTodoText, setNewTodoText] = useState('');
-    
+
     const handleAddEntry = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -53,7 +53,7 @@ function NewEntry() {
 
     const handleAddTodo = () => {
         if (newTodoText.trim() === '') return;
-        
+
         setTodos([...todos, { id: Date.now(), task: newTodoText }]);
         setNewTodoText('');
     };
@@ -76,7 +76,7 @@ function NewEntry() {
                         className="block w-full p-3 border border-sky-300 rounded-lg bg-white/80 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ring-focus"
                     />
                 </div>
-                
+
                 <div>
                     <label className="block text-sm font-medium mb-2 text-ocean-deep">
                         Title:
@@ -101,11 +101,11 @@ function NewEntry() {
                     />
                 </div>
 
-                <div>
+                {/* <div>
                     <label className="block text-sm font-medium mb-2 text-ocean-deep">
                         Todos (optional):
                     </label>
-                    
+
                     {todos.length > 0 && (
                         <ul className="mb-3 space-y-2">
                             {todos.map((todo) => (
@@ -145,7 +145,7 @@ function NewEntry() {
                             Add
                         </button>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="flex gap-3 pt-2 justify-center">
                     <button
@@ -163,7 +163,7 @@ function NewEntry() {
                         Clear
                     </button>
                 </div>
-                
+
                 <div className="pt-4 text-center">
                     <Link to="/" className="text-aqua hover:underline text-sm">
                         ← Return to Home

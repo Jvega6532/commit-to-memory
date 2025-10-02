@@ -6,6 +6,7 @@ import App from './App.jsx'
 import Home from './Home.jsx'
 import NewEntry from './NewEntry.jsx'
 import Entry from './Entry.jsx'
+import './App.css'
 
 createRoot(document.getElementById('root')).render(
 

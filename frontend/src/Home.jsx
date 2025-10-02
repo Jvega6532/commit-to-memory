@@ -286,7 +286,7 @@ function Home() {
                                     <div className="mt-5 flex flex-wrap gap-2">
                                         <button
                                             onClick={() => openAddTodoModal(entry)}
-                                            className="flex-1 min-w-[110px] bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-white px-3 py-2.5 rounded-xl text-sm font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus whitespace-nowrap"
+                                            className="flex-1 min-w-[110px] bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-green px-3 py-2.5 rounded-xl text-sm font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus whitespace-nowrap"
                                         >
                                             Add Todo
                                         </button>

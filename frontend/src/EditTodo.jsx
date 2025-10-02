@@ -87,7 +87,7 @@ function EditableTodo({ todo, onUpdate, onDelete }) {
                         <button
                             onClick={handleSaveClick}
                             disabled={loading}
-                            className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-white px-3 py-1 rounded-xl font-semibold disabled:opacity-60 ring-focus"
+                            className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-green px-3 py-1 rounded-xl font-semibold disabled:opacity-60 ring-focus"
                         >
                             Save
                         </button>

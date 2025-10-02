@@ -59,17 +59,12 @@ function Home() {
             const pct = total ? Math.round((done / total) * 100) : 0;
 
             const prev = prevCompletionMap.current.get(entry.entry_id) ?? 0;
-            
+
             if (pct !== prev && total > 0) {
                 setProgressAnimatingEntry(entry.entry_id);
                 setTimeout(() => setProgressAnimatingEntry(null), 1500);
             }
-            
-            if (pct === 100 && prev < 100 && total > 0) {
-                setHighFive(true);
-                const id = setTimeout(() => setHighFive(false), 1000);
-                return () => clearTimeout(id);
-            }
+
             prevCompletionMap.current.set(entry.entry_id, pct);
         });
     }, [entries, todos, todosByEntry]);
@@ -98,7 +93,7 @@ function Home() {
         setNewTodoText('');
         setModalOpen(true);
     };
-    
+
     const closeAddTodoModal = () => setModalOpen(false);
 
     const addTodo = async (e) => {
@@ -144,7 +139,7 @@ function Home() {
             if (!response.ok) throw new Error('Failed to update todo');
 
             const updatedTodo = await response.json();
-            
+
             setTodos((prev) =>
                 prev.map((t) => (t.todo_id === updatedTodo.todo_id ? updatedTodo : t))
             );
@@ -184,12 +179,12 @@ function Home() {
                     const total = relatedTodos.length;
                     const done = completedTodos.length;
                     const pct = total ? Math.round((done / total) * 100) : 0;
-                    
+
                     const previewHeight = clickedProgress === entry.entry_id ? Math.min(20, (total * 1.8) + 8) : 0;
 
                     return (
-                        <div 
-                            key={entry.entry_id} 
+                        <div
+                            key={entry.entry_id}
                             className="relative bg-white/90 backdrop-blur border border-sky-200 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow"
                             style={{ paddingBottom: clickedProgress === entry.entry_id ? `${previewHeight}rem` : '1.5rem' }}
                         >
@@ -236,8 +231,8 @@ function Home() {
                                             View Project &rarr;
                                         </a>
                                     )}
-                                    
-                                    <div 
+
+                                    <div
                                         className="mt-4 relative cursor-pointer group"
                                         onClick={() => handleProgressClick(entry.entry_id)}
                                     >
@@ -246,13 +241,12 @@ function Home() {
                                             <span className="text-lg font-bold">{pct}%</span>
                                         </div>
                                         <div className="w-full h-4 bg-cyan-50 rounded-full overflow-hidden border border-cyan-100 shadow-inner">
-                                            <div 
-                                                className={`h-full rounded-full transition-all duration-500 ${
-                                                    progressAnimatingEntry === entry.entry_id 
-                                                    ? 'bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-500 shadow-lg' 
-                                                    : 'bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-500'
-                                                }`}
-                                                style={{ width: `${pct}%` }} 
+                                            <div
+                                                className={`h-full rounded-full transition-all duration-500 ${progressAnimatingEntry === entry.entry_id
+                                                        ? 'bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-500 shadow-lg'
+                                                        : 'bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-500'
+                                                    }`}
+                                                style={{ width: `${pct}%` }}
                                             />
                                         </div>
                                         <p className="text-xs text-gray-500 mt-1 text-center group-hover:text-gray-700">
@@ -260,7 +254,7 @@ function Home() {
                                         </p>
 
                                         {clickedProgress === entry.entry_id && (
-                                            <div 
+                                            <div
                                                 className="absolute top-full left-0 right-0 mt-3 bg-white rounded-2xl p-6 shadow-2xl z-[1000] max-h-[400px] overflow-y-auto border-2 border-cyan-100"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
@@ -276,16 +270,16 @@ function Home() {
                                                 </button>
                                                 <div className="text-center mb-4">
                                                     <h4 className="text-lg font-bold text-blue-600 mb-1">
-                                                        {relatedTodos.length === 0 ? 'Ready to Push?' : 
-                                                         done === total && total > 0 ? 'Branch Merged!' : 
-                                                         done === 0 ? 'Time to Commit!' : 
-                                                         'Building...'}
+                                                        {relatedTodos.length === 0 ? 'Ready to Push?' :
+                                                            done === total && total > 0 ? 'Branch Merged!' :
+                                                                done === 0 ? 'Time to Commit!' :
+                                                                    'Building...'}
                                                     </h4>
                                                     <p className="text-sm text-gray-600">
-                                                        {relatedTodos.length === 0 ? 'No todos yet - initialize your first task!' : 
-                                                         done === total && total > 0 ? `All ${total} todos deployed!` : 
-                                                         done === 0 ? `${total} tasks in backlog` : 
-                                                         `${total - done} pending, ${done} shipped`}
+                                                        {relatedTodos.length === 0 ? 'No todos yet - initialize your first task!' :
+                                                            done === total && total > 0 ? `All ${total} todos deployed!` :
+                                                                done === 0 ? `${total} tasks in backlog` :
+                                                                    `${total - done} pending, ${done} shipped`}
                                                     </p>
                                                 </div>
                                                 {relatedTodos.length === 0 ? (
@@ -293,14 +287,14 @@ function Home() {
                                                 ) : (
                                                     <ul className="space-y-3">
                                                         {relatedTodos.map((todo) => (
-                                                            <li 
-                                                                key={todo.todo_id} 
+                                                            <li
+                                                                key={todo.todo_id}
                                                                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
                                                                 onClick={() => handleTodoToggle(todo)}
                                                             >
-                                                                <input 
-                                                                    type="checkbox" 
-                                                                    checked={todo.is_completed} 
+                                                                <input
+                                                                    type="checkbox"
+                                                                    checked={todo.is_completed}
                                                                     onChange={() => handleTodoToggle(todo)}
                                                                     className="w-5 h-5 rounded border-2 border-cyan-400 text-cyan-500 focus:ring-2 focus:ring-cyan-300 cursor-pointer"
                                                                     onClick={(e) => e.stopPropagation()}
@@ -339,11 +333,11 @@ function Home() {
 
                                     <div className="mt-4 pt-4 border-t border-gray-200 text-center">
                                         <p className="text-xs text-gray-500">
-                                            {getDaysOpen(entry.post_date) === 0 
-                                                ? 'Freshly initialized today!' 
-                                                : getDaysOpen(entry.post_date) === 1 
-                                                ? 'Still compiling... 1 day in production' 
-                                                : `Runtime: ${getDaysOpen(entry.post_date)} days in production`}
+                                            {getDaysOpen(entry.post_date) === 0
+                                                ? 'Freshly initialized today!'
+                                                : getDaysOpen(entry.post_date) === 1
+                                                    ? 'Still compiling... 1 day in production'
+                                                    : `Runtime: ${getDaysOpen(entry.post_date)} days in production`}
                                         </p>
                                     </div>
                                 </>
@@ -407,11 +401,6 @@ function Home() {
                 </div>
             )}
 
-            {highFive && (
-                <div className="fixed inset-0 z-[60] grid place-items-center pointer-events-none">
-                    <div className="text-6xl animate-bounce">&#127881;</div>
-                </div>
-            )}
         </div>
     );
 }

@@ -76,7 +76,7 @@ function Entry() {
     };
 
     const handleDeleteTodo = async (todoId) => {
-        const confirmed = window.confirm('Are you sure you want to delete this entry?');
+        const confirmed = window.confirm('Are you sure you want to delete this todo?');
         if (!confirmed) return;
 
         try {
@@ -96,40 +96,49 @@ function Entry() {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="text-center py-12">Loading...</div>;
     }
 
     if (!entry) {
-        return <div>Entry not found</div>;
+        return <div className="text-center py-12">Entry not found</div>;
     }
 
     return (
-        <div>
-            <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 border border-gray-200 dark:border-gray-700 mb-4">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {entry.title} <span className="text-gray-500 dark:text-gray-400 font-normal text-sm">| {entry.post_date}</span>
+        <div className="max-w-4xl mx-auto px-4">
+            <div className="bg-white/85 backdrop-blur border border-sky-blue/30 rounded-2xl p-6 mb-6 dark:bg-slate-900/70 dark:border-white/10">
+                <h2 className="text-2xl font-semibold mb-2 text-ocean-deep">
+                    {entry.title} 
+                    <span className="text-gray-500 dark:text-gray-400 font-normal text-sm ml-2">
+                        | {entry.post_date}
+                    </span>
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 text-base">
+                <p className="text-gray-700 dark:text-gray-300 text-base mb-3">
                     {entry.content}
                 </p>
-                <p className="mt-2 break-all">
-                    <a
-                        href={entry.proj_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                    >
-                        {entry.proj_link}
-                    </a>
-                </p>
+                {entry.proj_link && (
+                    <p className="break-all">
+                        <a
+                            href={entry.proj_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-aqua hover:underline"
+                        >
+                            {entry.proj_link}
+                        </a>
+                    </p>
+                )}
             </div>
 
-            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Todos</h3>
+            <h3 className="text-xl font-semibold mb-4 text-ocean-deep">
+                Todos
+            </h3>
 
             {Array.isArray(todos) && todos.length === 0 ? (
-                <p>No todos yet. Start by adding one above.</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    No todos yet. Start by adding one below.
+                </p>
             ) : (
-                <ul>
+                <ul className="space-y-3 mb-6">
                     {todos.map((todo) => (
                         <EditableTodo
                             key={todo.todo_id}
@@ -141,27 +150,28 @@ function Entry() {
                 </ul>
             )}
 
-
             <textarea
                 placeholder="Add a todo ..."
                 value={newTodoText}
                 onChange={(e) => setNewTodoText(e.target.value)}
                 rows={4}
-                className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+                className="block w-full p-4 border border-sky-300 rounded-lg bg-white/80 text-base ring-focus dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mb-4"
             />
 
-
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-6">
                 <button
                     onClick={handleAddTodo}
-                    className="ring-focus px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-400 via-blue-500 to-blue-700"
+                    className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-white px-6 py-3 rounded-xl font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus"
                 >
                     Add Todo
                 </button>
             </div>
 
-            <br />
-            <p><Link to="/">Return to Home</Link></p>
+            <div className="text-center">
+                <Link to="/" className="text-aqua hover:underline text-sm">
+                    ← Return to Home
+                </Link>
+            </div>
         </div>
     );
 }

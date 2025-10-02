@@ -33,34 +33,34 @@ function EditEntryForm({ entry, onCancel, onSave }) {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-white/90 dark:bg-slate-900/60 px-3 py-2 text-sm ring-focus mb-2"
+                className="w-full rounded-xl border border-sky-300 dark:border-white/10 bg-white/90 dark:bg-slate-900/60 px-3 py-2 text-sm ring-focus mb-2"
                 placeholder="Title"
             />
             <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 rows={4}
-                className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-white/90 dark:bg-slate-900/60 px-3 py-2 text-sm ring-focus mb-2"
+                className="w-full rounded-xl border border-sky-300 dark:border-white/10 bg-white/90 dark:bg-slate-900/60 px-3 py-2 text-sm ring-focus mb-2"
                 placeholder="Content"
             />
             <input
                 type="url"
                 value={projLink}
                 onChange={(e) => setProjLink(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-white/90 dark:bg-slate-900/60 px-3 py-2 text-sm ring-focus mb-2"
+                className="w-full rounded-xl border border-sky-300 dark:border-white/10 bg-white/90 dark:bg-slate-900/60 px-3 py-2 text-sm ring-focus mb-2"
                 placeholder="Project link (URL)"
             />
             <div className="flex gap-2">
                 <button
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="ring-focus px-4 py-2 rounded-xl text-white bg-gradient-to-r from-sky-400 via-blue-500 to-blue-700"
+                    className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-white px-4 py-2 rounded-xl font-semibold disabled:opacity-60 ring-focus"
                 >
                     {saving ? 'Saving...' : 'Save'}
                 </button>
                 <button
                     onClick={onCancel}
-                    className="ring-focus px-4 py-2 rounded-xl gradient-cancel hover:opacity-90"
+                    className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 text-gray-800 px-4 py-2 rounded-xl shadow hover:opacity-90 ring-focus"
                 >
                     Cancel
                 </button>

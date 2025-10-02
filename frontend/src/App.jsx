@@ -39,7 +39,9 @@ function App() {
       </main>
 
       <footer className="mt-10 py-8 text-sm text-slate-500 dark:text-slate-400">
-        <p>© 2025 Commit To Memory · Created by Brian Leach and Jamir Vega</p>
+        <div className="mx-auto max-w-6xl text-center px-4">
+          <p>© 2025 Commit To Memory · Created by Brian Leach and Jamir Vega</p>
+        </div>
       </footer>
     </>
   )

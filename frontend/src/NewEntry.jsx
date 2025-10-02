@@ -150,7 +150,7 @@ function NewEntry() {
                 <div className="flex gap-3 pt-2 justify-center">
                     <button
                         type="submit"
-                        className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-white px-6 py-3 rounded-xl font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus">
+                        className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-green px-6 py-3 rounded-xl font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus">
                         Save Entry
                     </button>
                     <button

@@ -107,7 +107,7 @@ function Entry() {
         <div className="max-w-4xl mx-auto px-4">
             <div className="bg-white/85 backdrop-blur border border-sky-blue/30 rounded-2xl p-6 mb-6 dark:bg-slate-900/70 dark:border-white/10">
                 <h2 className="text-2xl font-semibold mb-2 text-ocean-deep">
-                    {entry.title} 
+                    {entry.title}
                     <span className="text-gray-500 dark:text-gray-400 font-normal text-sm ml-2">
                         | {entry.post_date}
                     </span>
@@ -161,7 +161,7 @@ function Entry() {
             <div className="flex justify-center mb-6">
                 <button
                     onClick={handleAddTodo}
-                    className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-white px-6 py-3 rounded-xl font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus"
+                    className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-green px-6 py-3 rounded-xl font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus"
                 >
                     Add Todo
                 </button>

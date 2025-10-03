@@ -284,24 +284,26 @@ function Home() {
                                                     <p className="text-sm text-gray-500 text-center py-4">Add your first todo to get started!</p>
                                                 ) : (
                                                     <ul className="space-y-3">
-                                                        {relatedTodos.map((todo) => (
-                                                            <li
-                                                                key={todo.todo_id}
-                                                                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-                                                                onClick={() => handleTodoToggle(todo)}
-                                                            >
-                                                                <input
-                                                                    type="checkbox"
-                                                                    checked={todo.completion}
-                                                                    onChange={() => handleTodoToggle(todo)}
-                                                                    className="w-5 h-5 rounded border-2 border-cyan-400 text-cyan-500 focus:ring-2 focus:ring-cyan-300 cursor-pointer"
-                                                                    onClick={(e) => e.stopPropagation()}
-                                                                />
-                                                                <span className={`flex-1 ${todo.completion ? 'line-through text-gray-400' : 'text-gray-800 font-medium'}`}>
-                                                                    {todo.task}
-                                                                </span>
-                                                            </li>
-                                                        ))}
+                                                        {[...relatedTodos]
+                                                            .sort((a, b) => a.completion - b.completion)
+                                                            .map((todo) => (
+                                                                <li
+                                                                    key={todo.todo_id}
+                                                                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+                                                                    onClick={() => handleTodoToggle(todo)}
+                                                                >
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={todo.completion}
+                                                                        onChange={() => handleTodoToggle(todo)}
+                                                                        className="w-5 h-5 rounded border-2 border-cyan-400 text-cyan-500 focus:ring-2 focus:ring-cyan-300 cursor-pointer"
+                                                                        onClick={(e) => e.stopPropagation()}
+                                                                    />
+                                                                    <span className={`flex-1 ${todo.completion ? 'line-through text-gray-400' : 'text-gray-800 font-medium'}`}>
+                                                                        {todo.task}
+                                                                    </span>
+                                                                </li>
+                                                            ))}
                                                     </ul>
                                                 )}
                                             </div>

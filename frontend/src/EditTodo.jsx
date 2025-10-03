@@ -40,7 +40,7 @@ function EditableTodo({ todo, onUpdate, onDelete }) {
             const response = await fetch(`http://localhost:8000/todos/${todo.todo_id}/complete`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ is_completed: !todo.is_completed }),
+                body: JSON.stringify({ completion: !todo.completion }),
             });
 
             if (!response.ok) {
@@ -61,7 +61,7 @@ function EditableTodo({ todo, onUpdate, onDelete }) {
         <li className="bg-white/85 backdrop-blur border border-sky-blue/30 rounded-2xl p-4 flex items-center space-x-4 dark:bg-slate-900/70 dark:border-white/10">
             <input
                 type="checkbox"
-                checked={todo.is_completed}
+                checked={todo.completion}
                 onChange={handleCheckboxChange}
                 className="w-5 h-5 rounded ring-focus accent-aqua cursor-pointer"
             />
@@ -75,7 +75,7 @@ function EditableTodo({ todo, onUpdate, onDelete }) {
                         className="w-full p-2 border border-sky-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white ring-focus"
                     />
                 ) : (
-                    <span className={`select-none ${todo.is_completed ? 'line-through text-gray-400' : 'text-gray-900 dark:text-white'}`}>
+                    <span className={`select-none ${todo.completion ? 'line-through text-gray-400' : 'text-gray-900 dark:text-white'}`}>
                         {todo.task}
                     </span>
                 )}
@@ -87,7 +87,7 @@ function EditableTodo({ todo, onUpdate, onDelete }) {
                         <button
                             onClick={handleSaveClick}
                             disabled={loading}
-                            className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-green px-3 py-1 rounded-xl font-semibold disabled:opacity-60 ring-focus"
+                            className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
                         >
                             Save
                         </button>

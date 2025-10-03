@@ -161,7 +161,7 @@ function Entry() {
             <div className="flex justify-center mb-6">
                 <button
                     onClick={handleAddTodo}
-                    className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-green px-6 py-3 rounded-xl font-semibold shadow-coastal hover:shadow-coastal-lg transition-all hover:-translate-y-0.5 ring-focus"
+                    className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
                 >
                     Add Todo
                 </button>

@@ -19,5 +19,5 @@ class ToDoIn(BaseModel):
 
 class ToDoOut(ToDoIn):
     todo_id: int
-    is_completed: bool
+    completion: bool
     entry_id: int

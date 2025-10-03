@@ -101,7 +101,7 @@ def get_all_db_todos() -> list[ToDoOut] | None:
                     todo_id=db_todo.todo_id,
                     entry_id=db_todo.entry_id,
                     task=db_todo.task,
-                    is_completed=db_todo.is_completed,
+                    completion=db_todo.completion,
                 )
             )
         return todo_list if todo_list else None
@@ -119,7 +119,7 @@ def get_db_todos(entry_id: int) -> list[ToDoOut] | None:
                         todo_id=db_todo.todo_id,
                         entry_id=db_todo.entry_id,
                         task=db_todo.task,
-                        is_completed=db_todo.is_completed,
+                        completion=db_todo.completion,
                     )
                 )
             return todo_list
@@ -129,9 +129,7 @@ def get_db_todos(entry_id: int) -> list[ToDoOut] | None:
 
 def add_db_todo(entry_id: int, new_todo: ToDoIn) -> ToDoOut | None:
     with SessionLocal() as db:
-        new_todo = DBTodos(
-            entry_id=entry_id, is_completed=False, **new_todo.model_dump()
-        )
+        new_todo = DBTodos(entry_id=entry_id, completion=False, **new_todo.model_dump())
         db.add(new_todo)
         db.commit()
         db.refresh(new_todo)
@@ -139,7 +137,7 @@ def add_db_todo(entry_id: int, new_todo: ToDoIn) -> ToDoOut | None:
             todo_id=new_todo.todo_id,
             entry_id=new_todo.entry_id,
             task=new_todo.task,
-            is_completed=new_todo.is_completed,
+            completion=new_todo.completion,
         )
 
 
@@ -168,7 +166,7 @@ def update_db_todo(todo_id: int, updated_todo: ToDoIn) -> ToDoOut | None:
             todo_id=todo.todo_id,
             entry_id=todo.entry_id,
             task=todo.task,
-            is_completed=todo.is_completed,
+            completion=todo.completion,
         )
 
 
@@ -178,17 +176,17 @@ def mark_db_todo_completed(todo_id: int) -> ToDoOut | None | bool:
         entry = db.scalar(stmt)
         if not entry:
             return False
-        if entry.is_completed:
-            entry.is_completed = False
+        if entry.completion:
+            entry.completion = False
             db.commit()
             db.refresh(entry)
         else:
-            entry.is_completed = True
+            entry.completion = True
             db.commit()
             db.refresh(entry)
         return ToDoOut(
             todo_id=entry.todo_id,
             entry_id=entry.entry_id,
             task=entry.task,
-            is_completed=entry.is_completed,
+            completion=entry.completion,
         )

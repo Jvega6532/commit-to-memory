@@ -23,4 +23,4 @@ class DBTodos(Base):
     todo_id: Mapped[int] = mapped_column(primary_key=True, index=True)
     entry_id: Mapped[int] = mapped_column(ForeignKey("entries.entry_id"))
     task: Mapped[str] = mapped_column()
-    is_completed: Mapped[bool] = mapped_column()
+    completion: Mapped[bool] = mapped_column()

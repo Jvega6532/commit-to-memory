@@ -11,7 +11,6 @@ function Home() {
     const [activeEntry, setActiveEntry] = useState(null);
     const [newTodoText, setNewTodoText] = useState('');
     const [savingTodo, setSavingTodo] = useState(false);
-    const [highFive, setHighFive] = useState(false);
     const prevCompletionMap = useRef(new Map());
     const [progressAnimatingEntry, setProgressAnimatingEntry] = useState(null);
     const [clickedProgress, setClickedProgress] = useState(null);
@@ -55,7 +54,7 @@ function Home() {
         entries.forEach((entry) => {
             const list = todosByEntry.get(entry.entry_id) || [];
             const total = list.length;
-            const done = list.filter(t => t.is_completed).length;
+            const done = list.filter(t => t.completion).length;
             const pct = total ? Math.round((done / total) * 100) : 0;
 
             const prev = prevCompletionMap.current.get(entry.entry_id) ?? 0;
@@ -133,7 +132,7 @@ function Home() {
             const response = await fetch(`http://localhost:8000/todos/${todo.todo_id}/complete`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ is_completed: !todo.is_completed }),
+                body: JSON.stringify({ completion: !todo.completion }),
             });
 
             if (!response.ok) throw new Error('Failed to update todo');
@@ -175,7 +174,7 @@ function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 {entries.map((entry) => {
                     const relatedTodos = todosByEntry.get(entry.entry_id) || [];
-                    const completedTodos = relatedTodos.filter(t => t.is_completed);
+                    const completedTodos = relatedTodos.filter(t => t.completion);
                     const total = relatedTodos.length;
                     const done = completedTodos.length;
                     const pct = total ? Math.round((done / total) * 100) : 0;
@@ -188,18 +187,6 @@ function Home() {
                             className="relative bg-white/90 backdrop-blur border border-sky-200 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow"
                             style={{ paddingBottom: clickedProgress === entry.entry_id ? `${previewHeight}rem` : '1.5rem' }}
                         >
-                            <div className="absolute top-4 right-4 w-16 h-20 rounded-xl shadow-lg flex flex-col overflow-hidden border-2 border-sky-100">
-                                <div className="w-full h-6 bg-gradient-to-r from-teal-500 to-cyan-600 flex items-center justify-center">
-                                    <span className="text-white text-xs font-bold uppercase tracking-wider">
-                                        {getMonthName(entry.post_date)}
-                                    </span>
-                                </div>
-                                <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-orange-400 to-orange-500">
-                                    <span className="text-white text-3xl font-bold drop-shadow-md">
-                                        {getDateNumber(entry.post_date)}
-                                    </span>
-                                </div>
-                            </div>
 
                             {editingEntryId === entry.entry_id ? (
                                 <EditEntryForm
@@ -214,7 +201,18 @@ function Home() {
                                 />
                             ) : (
                                 <>
-                                    <p className="text-xs text-gray-500 mb-2 pr-20">{entry.post_date}</p>
+                                    <div className="absolute top-4 right-4 w-16 h-20 rounded-xl shadow-lg flex flex-col overflow-hidden border-2 border-sky-100">
+                                        <div className="w-full h-6 bg-gradient-to-r from-teal-500 to-cyan-600 flex items-center justify-center">
+                                            <span className="text-white text-xs font-bold uppercase tracking-wider">
+                                                {getMonthName(entry.post_date)}
+                                            </span>
+                                        </div>
+                                        <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-orange-400 to-orange-500">
+                                            <span className="text-white text-3xl font-bold drop-shadow-md">
+                                                {getDateNumber(entry.post_date)}
+                                            </span>
+                                        </div>
+                                    </div>
                                     <h3 className="text-xl font-bold text-blue-600 pr-20 mb-3">
                                         <Link to={`/entries/${entry.entry_id}`} className="hover:text-blue-700 hover:underline">
                                             {entry.title}
@@ -243,8 +241,8 @@ function Home() {
                                         <div className="w-full h-4 bg-cyan-50 rounded-full overflow-hidden border border-cyan-100 shadow-inner">
                                             <div
                                                 className={`h-full rounded-full transition-all duration-500 ${progressAnimatingEntry === entry.entry_id
-                                                        ? 'bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-500 shadow-lg'
-                                                        : 'bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-500'
+                                                    ? 'bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-500 shadow-lg'
+                                                    : 'bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-500'
                                                     }`}
                                                 style={{ width: `${pct}%` }}
                                             />
@@ -294,12 +292,12 @@ function Home() {
                                                             >
                                                                 <input
                                                                     type="checkbox"
-                                                                    checked={todo.is_completed}
+                                                                    checked={todo.completion}
                                                                     onChange={() => handleTodoToggle(todo)}
                                                                     className="w-5 h-5 rounded border-2 border-cyan-400 text-cyan-500 focus:ring-2 focus:ring-cyan-300 cursor-pointer"
                                                                     onClick={(e) => e.stopPropagation()}
                                                                 />
-                                                                <span className={`flex-1 ${todo.is_completed ? 'line-through text-gray-400' : 'text-gray-800 font-medium'}`}>
+                                                                <span className={`flex-1 ${todo.completion ? 'line-through text-gray-400' : 'text-gray-800 font-medium'}`}>
                                                                     {todo.task}
                                                                 </span>
                                                             </li>

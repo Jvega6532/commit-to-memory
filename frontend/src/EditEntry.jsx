@@ -54,7 +54,7 @@ function EditEntryForm({ entry, onCancel, onSave }) {
                 <button
                     onClick={handleSubmit}
                     disabled={saving}
-                    className="bg-gradient-to-r from-sky-blue via-aqua to-ocean-deep text-green px-4 py-2 rounded-xl font-semibold disabled:opacity-60 ring-focus"
+                    className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
                 >
                     {saving ? 'Saving...' : 'Save'}
                 </button>

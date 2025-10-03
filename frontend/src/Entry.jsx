@@ -139,14 +139,16 @@ function Entry() {
                 </p>
             ) : (
                 <ul className="space-y-3 mb-6">
-                    {todos.map((todo) => (
-                        <EditableTodo
-                            key={todo.todo_id}
-                            todo={todo}
-                            onUpdate={handleUpdateTodo}
-                            onDelete={handleDeleteTodo}
-                        />
-                    ))}
+                    {[...todos]
+                        .sort((a, b) => a.completion - b.completion)
+                        .map((todo) => (
+                            <EditableTodo
+                                key={todo.todo_id}
+                                todo={todo}
+                                onUpdate={handleUpdateTodo}
+                                onDelete={handleDeleteTodo}
+                            />
+                        ))}
                 </ul>
             )}
 

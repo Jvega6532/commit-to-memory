@@ -54,7 +54,7 @@ We created two tables:
 - `todo_id` - unique ID (primary key)
 - `entry_id` - links to parent entry (foreign key)
 - `task` - the task description
-- `is_completed` - whether it's done or not
+- `completion` - whether it's done or not
 
 ## Getting Started
 

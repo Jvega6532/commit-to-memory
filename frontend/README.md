@@ -1,4 +1,4 @@
-# Software Engineering Journal Application
+# Dev Journal Application
 
 A full-stack web application our team built for tracking development work with journal entries and todo lists. We used FastAPI for the backend, React for the frontend, and PostgreSQL for the database.
 
@@ -135,17 +135,49 @@ docker-compose down -v
 - CORS is configured so the frontend and backend can communicate
 - ESLint helps keep the code clean
 
-### Running Without Docker
+### Running Without Docker (Local Development)
+
 If you want to run things locally without Docker:
 
-**Backend:**
+#### Setting Up Python Virtual Environment
+
+1. Create a virtual environment in the backend directory:
+```bash
+# On Mac/Linux
+python3 -m venv venv
+
+# On Windows
+python -m venv venv
+```
+
+2. Activate the virtual environment:
+```bash
+# On Mac/Linux
+source venv/bin/activate
+
+# On Windows
+venv\Scripts\activate
+```
+
+3. Install Python dependencies:
 ```bash
 pip install -r requirements.txt
+```
+
+4. Update the database URL in `db.py` to point to your local PostgreSQL instance
+
+5. Run the backend:
+```bash
 fastapi dev main.py
 ```
-(You'll need to update the database URL in `db.py` to point to your local PostgreSQL)
 
-**Frontend:**
+6. When you're done, deactivate the virtual environment:
+```bash
+deactivate
+```
+
+#### Frontend Setup
+
 ```bash
 cd frontend
 npm install
@@ -158,6 +190,7 @@ npm run dev
 - When you delete an entry, all its todos get deleted automatically (foreign key constraint)
 - The post date is set automatically when you create an entry
 - Database URL in `db.py` is set to `postgresql+psycopg://postgres:postgres@localhost:5432/entries_db`
+- Virtual environments keep Python dependencies isolated from your system Python
 
 ## Team Project
 
